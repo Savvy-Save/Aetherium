@@ -1,0 +1,112 @@
+/* ================= Layout & Responsiveness ================= */
+
+/* Media query for smaller screens */
+@media (max-width: 600px) {
+    .container {
+        width: 100%; /* Use full width on small screens */
+        padding: 1rem; /* Adjust padding */
+        margin-bottom: 1rem;
+        border-radius: 0; /* Optional: remove border radius */
+        box-shadow: none; /* Optional: remove shadow */
+    }
+
+    h2 {
+        font-size: 1.3rem;
+    }
+
+    h3 {
+        font-size: 1.1rem;
+    }
+
+    /* Adjust form element sizes for smaller screens */
+    .form-group label {
+        font-size: 0.85rem;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    input[type="email"],
+    input[type="date"],
+    select,
+    input[type="number"] {
+        padding: 0.5rem; /* Adjust padding */
+        font-size: 0.9rem;
+    }
+
+    /* Adjust button sizes and margins for smaller screens */
+    button.auth-button,
+    button.action-button,
+    .pin-actions button.action-button,
+    .edit-vault-box button.action-button {
+        width: auto; /* Allow buttons to size based on content */
+        padding: 0.5rem 0.8rem; /* Adjust padding */
+        font-size: 0.9rem;
+        margin: 0.25rem; /* Keep small margin */
+    }
+
+    /* Specific adjustments for overlays on small screens */
+    .pin-request-box {
+        padding: 1rem;
+        width: 90%; /* Slightly wider */
+    }
+    .pin-request-box h3 {
+        font-size: 1.1rem;
+    }
+    .pin-request-box input[type="text"] { /* Should be type="password" now */
+        font-size: 0.9rem;
+    }
+
+    .edit-vault-box {
+        padding: 1rem;
+        width: 95%; /* Wider */
+    }
+    .edit-vault-box h3 {
+        font-size: 1.3rem;
+    }
+    .edit-vault-box label {
+        font-size: 0.85rem;
+    }
+    .edit-vault-box input[type="text"],
+    .edit-vault-box input[type="password"],
+    .edit-vault-box input[type="email"] {
+        padding: 0.5rem;
+        font-size: 0.9rem;
+    }
+    .edit-vault-box button.action-button {
+        padding: 0.5rem 0.8rem;
+        font-size: 0.9rem;
+    }
+
+    /* Adjust vault item layout */
+     .vault-item-icon {
+        width: 40px; /* Smaller icon */
+        height: 40px;
+        font-size: 1.1em;
+    }
+    .vault-item h3 {
+        font-size: 1rem;
+    }
+     .vault-details p {
+        font-size: 0.85rem;
+    }
+    .vault-actions button.action-button {
+        padding: 4px 8px;
+        font-size: 0.75em;
+    }
+     .password-display .show-password-button {
+         padding: 3px 6px;
+         font-size: 0.75em;
+     }
+
+     /* Adjust navigation */
+     nav ul.nav-list {
+         gap: 5px; /* Reduce gap */
+         justify-content: center; /* Center items */
+         flex-wrap: wrap; /* Allow wrapping */
+     }
+     nav li.nav-item {
+         padding: 0.5rem 0.8rem; /* Adjust padding */
+         font-size: 0.9rem;
+         margin: 0.2rem; /* Adjust margin */
+     }
+}

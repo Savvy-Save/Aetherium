@@ -1,0 +1,782 @@
+/* ================= Component Styles ================= */
+
+/* Developer Toggle Container */
+.dev-toggle-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 330px;
+  background-color: transparent;
+  border-radius: 10px;
+  overflow: visible;
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+  color: #fff;
+  z-index: 9999;
+}
+
+.dev-toggle-button {
+  padding: 15px;
+  text-align: center;
+  cursor: pointer;
+  background-color: #6a5acd; /* purple accent */
+  transition: background-color 0.25s ease, transform 0.25s ease;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  position: relative;
+  z-index: 2;
+}
+
+.dev-toggle-container.open .dev-toggle-button {
+  transform: translateY(-125px);
+}
+
+.dev-toggle-button:hover {
+  background-color: #800080; /* darker purple on hover */
+}
+
+.arrow-icon {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.dev-toggle-container.open .arrow-icon {
+  transform: rotate(180deg);
+}
+
+.dev-content {
+  background-color: #f5f0ff; /* light lavender background */
+  color: #333; /* dark text for contrast */
+  padding: 18px;
+  font-size: 1.14rem;
+  line-height: 1.5;
+  overflow: hidden;
+  transform-origin: top;
+  transform: translateY(-20px);
+  opacity: 0;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  z-index: 1;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+.dev-toggle-container.open .dev-content {
+  transform: translateY(0);
+  opacity: 1;
+  transition-delay: 0.4s;
+}
+
+.dev-content ul {
+  margin: 10px 0 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.dev-content li {
+  margin-bottom: 5px;
+  padding-left: 0;
+}
+
+/* --- Navigation --- */
+/* Base styles for both navs */
+nav.main-navigation,
+nav.auth-navigation {
+    background: linear-gradient(90deg, #e6e6fa, #d8bfd8); /* Soft purple gradient */
+    color: #333; /* Darker text */
+    padding: 24px 0;
+    max-width: 1100px;
+    width: 95%;
+    margin: 25px auto; /* Centered with vertical margin */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    border-radius: 16px;
+    display: flex;
+    justify-content: center;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.nav-wrapper {
+    max-width: 900px;
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+}
+
+nav ul.nav-list {
+    list-style-type: none;
+    padding: 0 1rem; /* Add some padding */
+    margin: 0;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    justify-content: center; /* Center the list items within the ul */
+}
+
+nav li.nav-item {
+    padding: 0.8rem 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 8px;
+    margin: 0 0.5rem;
+    font-weight: 500;
+    font-size: 1.05rem;
+    white-space: nowrap;
+    position: relative;
+}
+
+nav li.nav-item:hover,
+nav li.nav-item.active {
+    background-color: transparent;
+    color: #800080;
+}
+
+
+nav li.nav-item:hover,
+nav li.nav-item.active {
+    background-color: #D8BFD8; /* Light purple hover/active background */
+    color: #333; /* Darker text on hover/active */
+    border-radius: 20px; /* Make it oblong */
+}
+
+/* --- Buttons --- */
+button.auth-button,
+button.action-button,
+.pin-actions button.action-button, /* Specificity needed */
+.edit-vault-box button.action-button { /* Specificity needed */
+    background-color: #9400D3; /* Dark purple button background */
+    color: white;
+    padding: 0.625rem 1.125rem;
+    border: none;
+    border-radius: 0.3125rem;
+    cursor: pointer;
+    width: 100%; /* Default to full width for auth buttons */
+    font-size: 0.95rem;
+    transition: background-color 0.2s ease;
+    font-weight: 500;
+    text-align: center;
+}
+
+/* Action buttons are typically smaller/inline */
+button.action-button,
+.pin-actions button.action-button,
+.edit-vault-box button.action-button {
+    width: auto; /* Override full width */
+    margin: 4px;
+}
+
+button.auth-button:hover,
+button.action-button:hover,
+.pin-actions button.action-button:hover,
+.edit-vault-box button.action-button:hover {
+    background-color: #800080; /* Deeper purple on hover */
+}
+
+/* Generate Password Button Specifics (within input-with-button) */
+.generate-password-button {
+    width: auto; /* Ensure it doesn't stretch */
+    margin-left: 8px; /* Keep space from input */
+    padding: 10px 16px; /* Specific padding */
+    font-size: 0.95rem;
+    border-radius: 5px;
+    flex-shrink: 0; /* Prevent shrinking */
+}
+
+/* --- Forms & Inputs --- */
+.form-group {
+    margin-bottom: 1rem; /* Use rem for consistency */
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="date"],
+select,
+input[type="number"] {
+    width: 100%;
+    padding: 0.625rem;
+    border: 1px solid #dcdcdc; /* Light grey border */
+    border-radius: 0.3125rem;
+    font-size: 1rem;
+    color: #555;
+    background-color: #fefefe; /* Slightly off-white input background */
+}
+
+/* Password Container & Toggle */
+.password-container {
+    position: relative;
+    display: flex; /* Needed for icon positioning */
+    align-items: center;
+}
+
+/* Input within password container needs padding for the icon */
+.password-container input[type="password"],
+.password-container input[type="text"] { /* Apply to text type too when toggled */
+    padding-right: 35px; /* Ensure space for icon */
+    flex-grow: 1; /* Allow input to grow if needed */
+}
+
+.password-toggle {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    padding: 6px;
+    opacity: 0.6;
+    font-size: 1.3em; /* Adjust as needed */
+    color: #777;
+    line-height: 1; /* Prevent icon affecting container height */
+    user-select: none; /* Prevent text selection */
+}
+
+.password-toggle:hover {
+    opacity: 0.9;
+}
+
+/* Optional Fields (Checkbox + Input) */
+.optional-field {
+    margin-top: 8px;
+}
+
+.checkbox-label {
+    display: inline-block;
+    margin-left: 6px;
+    font-weight: normal;
+    font-size: 0.95rem;
+    color: #555;
+    vertical-align: middle; /* Align with checkbox */
+}
+input[type="checkbox"] {
+     vertical-align: middle; /* Align with label */
+}
+
+/* Input with adjacent button */
+.input-with-button {
+    display: flex;
+    align-items: center;
+}
+
+.input-with-button .password-container { /* Target password container specifically */
+    flex-grow: 1;
+    margin-right: 10px; /* Space between input and button */
+    width: auto; /* Let flexbox handle width */
+}
+
+.input-with-button .password-container input {
+    width: 100%; /* Ensure input takes full width of its container */
+}
+
+/* Image Upload Input */
+input[type="file"] {
+    padding: 0.5rem;
+    border: 1px dashed #dcdcdc; /* Light grey dashed border */
+    background-color: #fefefe; /* Off-white background */
+    cursor: pointer;
+    border-radius: 0.3125rem;
+    font-size: 0.95rem;
+    display: block; /* Ensure it takes block space */
+    width: 100%;
+    margin-bottom: 5px; /* Space before remove button */
+}
+
+input[type="file"]::-webkit-file-upload-button {
+    padding: 0.5rem 0.75rem;
+    background-color: #9400D3; /* Dark purple button color */
+    color: white;
+    border: none;
+    border-radius: 0.3125rem;
+    cursor: pointer;
+    margin-right: 0.625rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+}
+
+input[type="file"]::-webkit-file-upload-button:hover {
+    background-color: #800080; /* Deeper purple on hover */
+}
+
+/* --- Password Strength Indicator --- */
+#password-strength-indicator {
+    margin-top: 6px;
+    font-size: 0.9rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    padding: 6px;
+    background-color: #fff;
+}
+
+#strength-bar {
+    height: 8px;
+    background-color: red; /* Default weak color */
+    width: 0%;
+    border-radius: 4px;
+    margin-bottom: 4px;
+    max-width: 100%;
+    transition: width 0.3s ease, background-color 0.3s ease; /* Add transition */
+}
+
+#strength-text {
+    font-size: 0.85rem;
+    color: #777;
+    margin-top: 2px;
+    font-weight: 400;
+}
+
+/* --- Vault Items --- */
+
+/* --- About Us Section --- */
+#about-section {
+    max-width: 700px;
+    margin: 30px auto;
+    padding: 2rem;
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    transition: all 0.3s ease;
+}
+
+#about-section h2 {
+    text-align: center;
+    font-size: 2rem;
+    color: #800080;
+    margin-bottom: 1rem;
+}
+
+#about-section p {
+    font-size: 1.05rem;
+    margin-bottom: 1rem;
+}
+
+#about-section ul {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 1rem;
+}
+
+#about-section ul li {
+    margin-bottom: 0.5rem;
+    padding-left: 1.5em;
+    position: relative;
+}
+
+#about-section ul li::before {
+    content: "✔";
+    position: absolute;
+    left: 0;
+    color: #800080;
+    font-weight: bold;
+}
+.vault-item {
+    border: 1px solid #e0e0e0;
+    padding: 5px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    background-color: #fff;
+    transition: background-color 0.2s ease;
+}
+
+.vault-item:hover {
+    background-color: #f0f0f5; /* Lighter lavender on hover */
+}
+
+.vault-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.vault-item-icon {
+    width: 100px; /* Default size */
+    height: 100px;
+    border-radius: 50%; /* Make it circular */
+    margin-right: 10px;
+    background-color: #e0e0e0; /* Placeholder background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.3em;
+    color: #777;
+    flex-shrink: 0;
+    overflow: hidden; /* Hide overflow for images */
+}
+
+.vault-item-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Cover the area */
+    display: block;
+}
+
+.vault-item h3 { /* Title within vault item */
+    margin: 15px;
+    color: #333;
+    font-size: 1.1rem;
+    flex-grow: 1; /* Allow title to take space */
+    word-break: break-word; /* Break long titles */
+}
+
+.vault-details {
+    color: #555;
+    padding-left: 0; /* Reset padding if needed */
+}
+
+.vault-details p {
+    line-height: 1.4;
+    margin-bottom: 4px;
+    font-size: 0.9rem;
+}
+
+.vault-actions {
+    margin-top: 8px;
+    display: flex;
+    justify-content: flex-start;
+    gap: 8px;
+    align-items: center;
+}
+
+.vault-actions button.action-button { /* Specific button styling within actions */
+    margin-right: 4px;
+    padding: 6px 12px;
+    font-size: 0.8em;
+    margin-bottom: 0;
+}
+
+/* Password Display within Vault Item */
+.password-display {
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap; /* Allow button to wrap on small screens */
+}
+
+.password-display strong {
+    margin-right: 5px;
+}
+
+.password-display .password-text {
+    word-break: break-all; /* Break long passwords */
+    margin-right: 8px; /* Space before button */
+}
+
+.password-display .show-password-button {
+    padding: 4px 8px;
+    font-size: 0.8em;
+    margin-left: auto; /* Push button to the right if space allows */
+    cursor: pointer;
+    flex-shrink: 0; /* Prevent button shrinking */
+}
+
+
+/* --- Overlays --- */
+.pin-request-overlay,
+.edit-vault-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Slightly darker overlay */
+    display: flex; /* Use flex for centering */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 1rem; /* Add padding for small screens */
+}
+
+.edit-vault-overlay {
+    z-index: 1010; /* Ensure edit is above PIN */
+    overflow-y: auto; /* Allow scrolling if content overflows */
+    align-items: flex-start; /* Align box to top */
+    padding-top: 5vh; /* Add some top padding */
+}
+
+/* Overlay Content Boxes */
+.pin-request-box,
+.edit-vault-box {
+    background-color: white;
+    padding: 1.5rem 2rem; /* Default padding */
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 90%; /* Default width */
+    max-width: 320px; /* Max width for PIN box */
+}
+
+.edit-vault-box {
+    max-width: 460px; /* Max width for Edit box */
+    max-height: 90vh; /* Limit height */
+    overflow-y: auto; /* Scroll inside box if needed */
+    text-align: left; /* Align form content left */
+}
+
+/* Overlay Headings */
+.pin-request-box h3,
+.edit-vault-box h3 {
+    color: #9400D3;
+    margin-top: 0; /* Remove default margin */
+    margin-bottom: 1.5rem; /* Space below heading */
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+/* PIN Input Specifics */
+.pin-request-box input[type="password"] { /* Changed from text */
+    width: 80%;
+    margin: 1rem auto; /* Center input */
+    font-size: 1rem;
+    padding: 0.6rem;
+    border-radius: 5px;
+    text-align: center; /* Center PIN text */
+    display: block; /* Ensure it's block for margin auto */
+}
+
+.pin-actions {
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+/* Edit Vault Form Specifics */
+.edit-vault-box .form-group {
+    margin-bottom: 1rem;
+}
+
+/* --- Notifications --- */
+.notification {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    padding: 15px 30px;
+    border-radius: 5px;
+    z-index: 1100; /* Above overlays */
+    text-align: center;
+    font-size: 1rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    opacity: 0; /* Start hidden for transition */
+    transition: opacity 0.5s ease;
+}
+
+.notification.success {
+    background-color: #4CAF50; /* Green */
+}
+
+.notification.error {
+    background-color: #f44336; /* Red */
+}
+
+/* --- Sidebar Navigation (Overrides for Main Page) --- */
+/* Apply only when #main-nav is NOT hidden */
+body:has(#main-nav:not(.hidden)) #main-nav {
+    position: fixed; /* Keep sidebar fixed on screen */
+    left: 0;
+    top: 20px; /* Position from top */
+    height: calc(100vh - 40px); /* Full height minus top/bottom space */
+    width: 220px; /* Sidebar width */
+    margin: 0 20px; /* Remove top/bottom margin, keep left/right */
+    padding: 20px 0; /* Vertical padding */
+    flex-direction: column; /* Stack items vertically */
+    justify-content: flex-start; /* Align items to top */
+    align-items: center; /* Center items horizontally */
+    border-radius: 15px; /* Slightly larger radius */
+    z-index: 900; /* Ensure it's above content but below overlays */
+    /* Inherit background, color, shadow from base nav rule */
+}
+
+body:has(#main-nav:not(.hidden)) #main-nav ul.nav-list {
+    flex-direction: column; /* Stack list items vertically */
+    align-items: stretch; /* Stretch items to fill width */
+    width: 100%; /* Use full width of sidebar */
+    padding: 0; /* Remove horizontal padding */
+    gap: 10px; /* Space between items */
+}
+
+body:has(#main-nav:not(.hidden)) #main-nav li.nav-item {
+    margin: 0 15px; /* Horizontal margin within sidebar */
+    padding: 12px 20px; /* Adjust padding for left alignment */
+    text-align: left; /* Align text to the left */
+    border-radius: 10px; /* Adjust radius */
+    white-space: normal; /* Allow wrapping if needed */
+}
+
+body:has(#main-nav:not(.hidden)) #main-nav li.nav-item:hover,
+body:has(#main-nav:not(.hidden)) #main-nav li.nav-item.active {
+    border-radius: 10px; /* Consistent radius */
+}
+
+
+/* --- Adjustments for Sidebar Layout --- */
+/* Prevent body centering and adjust container when sidebar is visible */
+body:has(#main-nav:not(.hidden)) {
+    align-items: flex-start; /* Override base centering */
+}
+body:has(#main-nav:not(.hidden)) main.container {
+    margin-left: 260px; /* sidebar width (220) + left margin (20) + right margin (20) */
+    margin-right: auto; /* Center container horizontally */
+    width: 90%; /* Responsive width */
+    max-width: 1000px; /* Wider max width for main page */
+    margin-top: 20px; /* Align outer top edge with sidebar's top: 20px */
+    margin-bottom: 20px; /* Match top/bottom margin */
+    padding: 2rem; /* Slightly larger padding */
+    transition: margin-left 0.3s ease, width 0.3s ease, max-width 0.3s ease, margin-top 0.3s ease; /* Smooth transition */
+}
+
+
+/* --- Adjustments for when auth-nav is visible (Welcome Page) --- */
+/* Ensure main container styles are reset when auth-nav is shown */
+body:has(#auth-nav:not(.hidden)) main.container {
+    margin-left: auto; /* Reset margin */
+    margin-right: auto; /* Ensure centering */
+    width: 90%; /* Re-apply base width */
+    max-width: 30rem; /* Re-apply base max-width */
+    margin-top: 30px; /* Set specific top margin */
+    margin-bottom: 1.875rem; /* Re-apply base bottom margin */
+    padding: 1.875rem; /* Re-apply base padding */
+}
+
+/* Ensure body alignment is reset too */
+body:has(#auth-nav:not(.hidden)) {
+     align-items: center; /* Re-apply base centering */
+}
+
+/* Ensure auth-nav retains its original layout when visible */
+body:has(#auth-nav:not(.hidden)) nav.auth-navigation {
+    position: static; /* Override fixed if somehow inherited */
+    height: auto;
+    width: 100%;
+    margin: 0 0 25px 0; /* Reset margin, add bottom margin */
+    padding: 8px 0;
+    flex-direction: row;
+    justify-content: center;
+    border-radius: 10px; /* Original radius */
+    /* Re-apply base styles that might be overridden by #main-nav */
+    background-color: #E6E6FA;
+    color: #555;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+body:has(#auth-nav:not(.hidden)) nav.auth-navigation ul.nav-list {
+     flex-direction: row;
+     align-items: center;
+     justify-content: center;
+     width: auto; /* Reset width */
+     padding: 0 1rem; /* Original padding */
+     gap: 15px; /* Original gap */
+}
+
+body:has(#auth-nav:not(.hidden)) nav.auth-navigation li.nav-item {
+    padding: 0.625rem 1.125rem; /* Original padding */
+    margin: 0 0.5rem; /* Original margin */
+    text-align: left; /* Original alignment */
+    border-radius: 0.3125rem; /* Original radius */
+    white-space: nowrap; /* Original wrapping */
+}
+
+body:has(#auth-nav:not(.hidden)) nav.auth-navigation li.nav-item:hover,
+body:has(#auth-nav:not(.hidden)) nav.auth-navigation li.nav-item.active {
+    border-radius: 20px; /* Original oblong radius */
+    background-color: #D8BFD8;
+    color: #333;
+}
+
+
+/* --- Responsive Adjustments for Sidebar --- */
+@media (max-width: 768px) { /* Adjust breakpoint as needed */
+    /* Styles for collapsed sidebar */
+    body:has(#main-nav:not(.hidden)) #main-nav {
+        width: 60px; /* Collapse sidebar width */
+    }
+
+    body:has(#main-nav:not(.hidden)) #main-nav li.nav-item {
+        padding: 10px;
+        margin: 0 5px;
+        font-size: 0.8rem; /* Smaller text or hide text */
+        /* Add styles for icon-only view if desired */
+    }
+
+     /* Adjust container for collapsed sidebar */
+     body:has(#main-nav:not(.hidden)) main.container {
+        margin-left: 100px; /* Collapsed width (60) + left margin (20) + right margin (20) */
+        margin-right: 10px; /* Smaller right margin */
+        margin-top: 20px; /* Keep outer box top alignment */
+        padding: 1.875rem; /* Ensure base padding applies */
+     }
+
+     /* Ensure reset applies on medium screens for auth page */
+     body:has(#auth-nav:not(.hidden)) main.container {
+        margin-left: auto;
+        margin-right: auto;
+        width: 90%;
+        max-width: 30rem;
+        margin-top: 30px; /* Keep specific top margin */
+        margin-bottom: 1.875rem;
+        padding: 1.875rem;
+    }
+}
+
+@media (max-width: 600px) {
+    /* Revert sidebar to top nav */
+     body:has(#main-nav:not(.hidden)) #main-nav {
+        position: static;
+        width: 100%;
+        height: auto;
+        margin: 0 0 15px 0; /* Reset margin, add bottom margin */
+        flex-direction: row;
+        padding: 8px 0;
+        border-radius: 0; /* Remove radius */
+     }
+
+     body:has(#main-nav:not(.hidden)) #main-nav ul.nav-list {
+         flex-direction: row;
+         justify-content: center;
+         flex-wrap: wrap; /* Allow wrapping */
+         gap: 5px;
+         padding: 0 1rem;
+     }
+
+     body:has(#main-nav:not(.hidden)) #main-nav li.nav-item {
+         padding: 0.5rem 0.8rem;
+         font-size: 0.9rem;
+         margin: 0.2rem;
+         text-align: left; /* Reset text align */
+         border-radius: 20px; /* Oblong */
+     }
+
+     /* Reset container styles when sidebar reverts to top nav */
+     body:has(#main-nav:not(.hidden)) main.container {
+         margin-left: auto; /* Reset margin */
+         margin-right: auto; /* Reset margin */
+         width: 100%; /* Small screen uses 100% width from layout.css */
+         max-width: none; /* Remove max-width on small screens */
+         margin-top: auto; /* Reset top margin */
+         margin-bottom: 1rem; /* Re-apply small screen bottom margin from layout.css */
+         padding: 1rem; /* Re-apply small screen padding from layout.css */
+     }
+
+     /* Ensure auth-nav looks correct on small screens too */
+     body:has(#auth-nav:not(.hidden)) nav.auth-navigation {
+        border-radius: 0; /* Small screen radius */
+     }
+     body:has(#auth-nav:not(.hidden)) nav.auth-navigation ul.nav-list {
+         gap: 5px; /* Small screen gap */
+         padding: 0 1rem; /* Small screen padding */
+     }
+      body:has(#auth-nav:not(.hidden)) li.nav-item {
+         padding: 0.5rem 0.8rem; /* Small screen padding */
+         margin: 0.2rem; /* Small screen margin */
+         border-radius: 20px; /* Small screen radius */
+     }
+}

@@ -1,0 +1,74 @@
+/* ================= Section Specific Styles ================= */
+
+/* --- Authentication Sections (Sign Up/Log In) --- */
+.auth-section {
+    /* Base styles if any needed for all auth sections */
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.auth-toggle-link {
+    text-align: center;
+    margin-top: 1.5rem; /* Increased margin */
+    font-size: 0.95rem;
+}
+
+.auth-toggle-link a {
+    color: #9400D3; /* Dark purple link color */
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.auth-toggle-link a:hover {
+    text-decoration: underline;
+}
+
+/* --- Password Manager Sections (Vault, Accounts, About, Settings) --- */
+.password-manager-section {
+    /* display: none; Handled by .hidden utility */
+}
+
+/* Vault Section Specifics */
+.vault-section .vault-form {
+    margin-top: 1.5rem;
+    border-top: 1px solid #e0e0e0;
+    padding-top: 1.5rem;
+}
+
+/* Accounts Section Specifics */
+.accounts-section .vault-list {
+    /* Styles specific to the list container in accounts */
+}
+
+#vaults-container p { /* Style for 'No vaults added yet' message */
+    text-align: center;
+    color: #777;
+    margin-top: 1rem;
+    font-style: italic;
+}
+
+
+/* About Section Specifics */
+.about-section p {
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    color: #555;
+}
+
+/* Settings Section Specifics */
+#user-settings p {
+    margin-bottom: 12px;
+    font-size: 0.95rem;
+    color: #555;
+    line-height: 1.5;
+}
+
+#user-settings strong {
+    color: #333;
+    min-width: 80px; /* Align values */
+    display: inline-block;
+}

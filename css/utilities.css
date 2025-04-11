@@ -1,0 +1,5 @@
+/* ================= Utility Styles ================= */
+
+.hidden {
+    display: none !important; /* Use !important to ensure override if needed, e.g., against default flex/block */
+}

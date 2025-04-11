@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Password Vault Manager - Securely store, manage, and protect your passwords and sensitive information.">
+    <title>Password Vault Manager</title>
+    <!-- Link new CSS files in order -->
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/sections.css">
+    <link rel="stylesheet" href="css/utilities.css">
+    <link rel="stylesheet" href="spider-cursor/spider-cursor.css">
+</head>
+<body>
+
+    <nav id="main-nav" class="main-navigation hidden" data-page="main">
+        <div class="nav-wrapper">
+            <ul class="nav-list">
+                <li class="nav-item active" data-section="vault">Vault</li>
+                <li class="nav-item hidden" data-section="accounts">Accounts</li>
+                <li class="nav-item" data-section="history">History</li>
+                <li class="nav-item hidden" data-section="settings">Settings</li>
+                <li class="nav-item" data-section="logout">Log Out</li>
+            </ul>
+        </div>
+    </nav>
+
+    <nav id="auth-nav" class="auth-navigation" data-page="welcome">
+        <div class="nav-wrapper">
+            <ul class="nav-list">
+                <li class="nav-item active" data-section="signup">Sign Up</li>
+                <li class="nav-item" data-section="login">Log In</li>
+                <li class="nav-item" data-section="about">About Us</li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+
+        <section id="signup-section" class="auth-section signup-section" data-page="welcome">
+            <h2>Sign Up</h2>
+            <form id="signup-form" class="auth-form">
+                <div class="form-group">
+                    <label for="signup-username">Username</label>
+                    <input type="text" id="signup-username" name="signup-username" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-email">Email</label>
+                    <input type="email" id="signup-email" name="signup-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-password">Password</label>
+                    <div class="password-container">
+                        <input type="password" id="signup-password" name="signup-password" required>
+                        <span class="password-toggle" aria-label="Toggle password visibility">👁️</span>
+                    </div>
+                    <div id="password-strength-indicator" class="hidden">
+                        <div id="strength-bar"></div>
+                        <p id="strength-text">Strength: </p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="signup-confirm-password">Confirm Password</label>
+                    <div class="password-container">
+                        <input type="password" id="signup-confirm-password" name="signup-confirm-password" required>
+                        <span class="password-toggle" aria-label="Toggle password visibility">👁️</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="signup-birthday">Birthday</label>
+                    <input type="date" id="signup-birthday" name="signup-birthday">
+                </div>
+                <div class="form-group">
+                    <label for="signup-gender">Gender</label>
+                    <select id="signup-gender" name="signup-gender">
+                        <option value="">Select Gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <button type="submit" class="auth-button">Sign Up</button>
+            </form>
+            <div class="auth-toggle-link">
+                <a href="#" id="login-link">Already have an account? Log in</a>
+            </div>
+        </section>
+
+        <section id="login-section" class="auth-section login-section hidden" data-page="welcome">
+            <h2>Log In</h2>
+            <form id="login-form" class="auth-form">
+                <div class="form-group">
+                    <label for="login-identifier">Username or Email</label>
+                    <input type="text" id="login-identifier" name="login-identifier" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <div class="password-container">
+                        <input type="password" id="login-password" name="login-password" required>
+                        <span class="password-toggle" aria-label="Toggle password visibility">👁️</span>
+                    </div>
+                </div>
+                <button type="submit" class="auth-button">Log In</button>
+            </form>
+            <div class="auth-toggle-link">
+                <a href="#" id="signup-link">Need an account? Sign up</a>
+            </div>
+        </section>
+
+        <section id="vault-section" class="password-manager-section vault-section hidden" data-page="main">
+            <h2>Vault</h2>
+
+            <div class="vault-form">
+                <h3>Add New Vault</h3>
+                <form id="add-vault-form">
+                    <div class="form-group">
+                        <label for="vault-title">Title</label>
+                        <input type="text" id="vault-title" name="vault-title" required>
+                    </div>
+                    <div class="form-group optional-checkbox">
+                        <input type="checkbox" id="use-username" name="use-username">
+                        <label for="use-username" class="checkbox-label">Username (Optional)</label>
+                        <div class="optional-field" id="username-field">
+                            <input type="text" id="vault-username" name="vault-username">
+                        </div>
+                    </div>
+                    <div class="form-group optional-checkbox">
+                        <input type="checkbox" id="use-email" name="use-email">
+                        <label for="use-email" class="checkbox-label">Email (Optional)</label>
+                        <div class="optional-field" id="email-field">
+                            <input type="email" id="vault-email" name="vault-email">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="vault-password">Password</label>
+                        <div class="input-with-button">
+                            <div class="password-container">
+                                <input type="password" id="vault-password" name="vault-password" required>
+                                <span class="password-toggle" aria-label="Toggle password visibility">👁️</span>
+                            </div>
+                            <button type="button" id="generate-password-button" class="action-button generate-password-button">Generate Password</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="vault-image">Vault Image (Optional)</label>
+                        <input type="file" id="vault-image" name="vault-image" accept="image/*">
+                        <button type="button" id="remove-vault-image" class="action-button">Remove Image</button>
+                    </div>
+                    <div class="form-group optional-checkbox">
+                        <input type="checkbox" id="use-pin" name="use-pin">
+                        <label for="use-pin" class="checkbox-label">Use PIN (4-16 digits)</label>
+                        <div class="optional-field hidden" id="pin-field">
+                            <input type="text" id="vault-pin" name="vault-pin" placeholder="Enter PIN (4-16 digits)" inputmode="numeric" pattern="\d{4,16}">
+                        </div>
+                    </div>
+                    <button type="submit" class="action-button">Add Vault</button>
+                </form>
+            </div>
+        </section>
+
+        <section id="accounts-section" class="password-manager-section accounts-section hidden" data-page="main">
+            <h2>Accounts</h2>
+            <div class="vault-list">
+                <div id="vaults-container">
+                    <p>No vaults added yet.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="history-section" class="password-manager-section history-section hidden" data-page="main">
+            <h2>History</h2>
+            <p>No history yet.</p>
+        </section>
+
+        <section id="settings-section" class="password-manager-section settings-section hidden" data-page="main">
+            <h2>Settings</h2>
+            <div id="user-settings">
+                <p><strong>Username:</strong> <span id="settings-username"></span></p>
+                <p><strong>Email:</strong> <span id="settings-email"></span></p>
+                <p><strong>Password:</strong> <span id="settings-password">********</span></p>
+                <p><strong>Birthday:</strong> <span id="settings-birthday"></span></p>
+                <p><strong>Gender:</strong> <span id="settings-gender"></span></p>
+            </div>
+        </section>
+
+        <section id="about-section" class="auth-section hidden" data-page="welcome">
+            <h2>About Us</h2>
+            <p>Welcome to <strong>Password Vault Manager</strong> — your secure, user-friendly solution for managing all your passwords and sensitive information.</p>
+            <p>Our mission is to help you store, organize, and protect your credentials with ease. Whether you're managing personal accounts or work logins, our app ensures your data is encrypted and accessible only to you.</p>
+            <p>Features include:</p>
+            <ul>
+                <li>Secure password storage with encryption</li>
+                <li>PIN protection for sensitive vaults</li>
+                <li>Easy password generation</li>
+                <li>Organized account management</li>
+                <li>Simple, intuitive interface</li>
+            </ul>
+            <p>Developed with care to keep your digital life safe and simple.</p>
+            <p><em>Thank you for trusting us with your security!</em></p>
+        </section>
+
+    </main>
+
+    <!-- Developer Info Toggle Container -->
+    <div class="dev-toggle-container" data-page="welcome">
+      <div class="dev-toggle-button">
+        <span class="arrow-icon">&#9650;</span>
+      </div>
+      <div class="dev-content hidden">
+        <p><strong>Developers:</strong></p>
+        <ul>
+          <li>Save Von Villanueva</li>
+          <li>Rogee Hans Nierves</li>
+        </ul>
+      </div>
+    </div>
+
+    <div id="pin-request-overlay" class="pin-request-overlay hidden" role="dialog" aria-modal="true">
+        <div class="pin-request-box">
+            <h3>Enter PIN</h3>
+            <input type="password" id="pin-input" placeholder="Enter PIN" inputmode="numeric" pattern="\d{4,16}" autocomplete="off">
+            <div class="pin-actions">
+                <button id="submit-pin-button" class="action-button">Submit</button>
+                <button id="cancel-pin-button" class="action-button">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="edit-vault-overlay" class="edit-vault-overlay hidden" role="dialog" aria-modal="true">
+        <div class="edit-vault-box">
+            <h3>Edit Vault</h3>
+            <form id="edit-vault-form">
+                <div class="form-group">
+                    <label for="edit-vault-title">Title</label>
+                    <input type="text" id="edit-vault-title" name="edit-vault-title" > </div>
+                <div class="form-group">
+                    <label for="edit-vault-username">Username</label>
+                    <input type="text" id="edit-vault-username" name="edit-vault-username">
+                </div>
+                <div class="form-group">
+                    <label for="edit-vault-email">Email</label>
+                    <input type="email" id="edit-vault-email" name="edit-vault-email">
+                </div>
+                <div class="form-group">
+                    <label for="edit-vault-password">New Password</label>
+                     <div class="input-with-button">
+                        <div class="password-container">
+                            <input type="password" id="edit-vault-password" name="edit-vault-password">
+                            <span class="password-toggle" aria-label="Toggle password visibility">👁️</span>
+                        </div>
+                        <button type="button" id="edit-generate-password-button" class="action-button generate-password-button">Generate Password</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="edit-vault-image">Vault Image (Optional, under 20MB, png, jpg, jpeg, gif):</label>
+                    <input type="file" id="edit-vault-image" name="edit-vault-image" accept="image/png, image/jpeg, image/jpg, image/gif">
+                    <button type="button" id="remove-edit-vault-image" class="action-button">Remove Image</button>
+                </div>
+                <div class="form-group optional-checkbox">
+                    <input type="checkbox" id="edit-use-pin" name="edit-use-pin">
+                    <label for="edit-use-pin" class="checkbox-label">Use/Change PIN (4-16 digits)</label>
+                    <div class="optional-field hidden" id="edit-pin-field">
+                        <input type="text" id="edit-vault-pin" name="edit-vault-pin" placeholder="Enter PIN (4-16 digits)" inputmode="numeric" pattern="\d{4,16}">
+                    </div>
+                </div>
+                <div id="edit-pin-verify-section" class="hidden">
+                    <div class="form-group">
+                        <label for="edit-verify-pin">Verify Current PIN</label>
+                        <input type="password" id="edit-verify-pin" name="edit-verify-pin" placeholder="Enter current PIN to change PIN" inputmode="numeric" pattern="\d{4,16}">
+                    </div>
+                </div>
+
+                <button type="submit" class="action-button">Save Changes</button>
+                <button type="button" id="cancel-edit-button" class="action-button">Cancel</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Load utility and module scripts first -->
+    <script type="module" src="js/utils.js" defer></script>
+    <script type="module" src="js/storage.js" defer></script>
+    <script type="module" src="js/vault.js" defer></script>
+    <!-- Future modules for auth, encryption, database -->
+    <script type="module" src="js/auth.js" defer></script>
+    <script type="module" src="js/encryption.js" defer></script>
+    <script type="module" src="js/database.js" defer></script>
+    <!-- Load main script last -->
+    <script type="module" src="script.js" defer></script>
+    <script src="spider-cursor/spider-cursor.js" defer></script> <!-- Keep non-module if it doesn't use import/export -->
+</body>
+</html>
