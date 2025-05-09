@@ -1,0 +1,12 @@
+/**
+ * utilities.css: Utility Styles
+ *
+ * Purpose:
+ *  - Defines small, single-purpose CSS classes that can be used to quickly apply styles.
+ *  - These classes are designed to be highly reusable and override other styles when necessary.
+ */
+
+/* Utility class to hide elements completely from the page. */
+.hidden {
+    display: none !important; /* Use !important to ensure override if needed, e.g., against default flex/block */
+}

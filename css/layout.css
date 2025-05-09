@@ -1,0 +1,164 @@
+/**
+ * layout.css: Layout & Responsiveness
+ *
+ * Purpose:
+ *  - Defines the overall page layout and structure.
+ *  - Contains media queries to adjust the layout for different screen sizes,
+ *    ensuring a responsive and user-friendly experience across devices.
+ */
+
+/* Media query for smaller screens */
+@media (max-width: 600px) {
+    .container {
+        width: 100%; /* Use full width on small screens */
+        padding: 1rem; /* Adjust padding */
+        margin-bottom: 1rem;
+        border-radius: 0; /* Optional: remove border radius */
+        box-shadow: none; /* Optional: remove shadow */
+    }
+
+    h2 {
+        font-size: 1.3rem;
+    }
+
+    h3 {
+        font-size: 1.1rem;
+    }
+
+    /* Adjust form element sizes for smaller screens */
+    .form-group label {
+        font-size: 0.85rem;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    input[type="email"],
+    input[type="date"],
+    select,
+    input[type="number"] {
+        padding: 0.5rem; /* Adjust padding */
+        font-size: 0.9rem;
+    }
+
+    /* Adjust button sizes and margins for smaller screens */
+    button.auth-button,
+    button.action-button,
+    .pin-actions button.action-button,
+    .edit-vault-box button.action-button {
+        width: auto; /* Allow buttons to size based on content */
+        padding: 0.5rem 0.8rem; /* Adjust padding */
+        font-size: 0.9rem;
+        margin: 0.25rem; /* Keep small margin */
+    }
+
+    /* Specific adjustments for overlays on small screens */
+    .pin-request-box {
+        padding: 1rem;
+        width: 90%; /* Slightly wider */
+    }
+    .pin-request-box h3 {
+        font-size: 1.1rem;
+    }
+    /* Removed ineffective rule for input[type="text"] */
+
+    .edit-vault-box {
+        padding: 1rem;
+        width: 95%; /* Wider */
+    }
+    .edit-vault-box h3 {
+        font-size: 1.3rem;
+    }
+    .edit-vault-box label {
+        font-size: 0.85rem;
+    }
+    .edit-vault-box input[type="text"],
+    .edit-vault-box input[type="password"],
+    .edit-vault-box input[type="email"] {
+        padding: 0.5rem;
+        font-size: 0.9rem;
+    }
+    .edit-vault-box button.action-button {
+        padding: 0.5rem 0.8rem;
+        font-size: 0.9rem;
+    }
+
+    /* Adjust vault item layout */
+     .vault-item-icon {
+        width: 40px; /* Smaller icon */
+        height: 40px;
+        font-size: 1.1em;
+    }
+    .vault-item h3 {
+        font-size: 1rem;
+    }
+     .vault-details p {
+        font-size: 0.85rem;
+    }
+    .vault-actions button.action-button {
+        padding: 4px 8px;
+        font-size: 0.75em;
+    }
+     .password-display .show-password-button {
+         padding: 3px 6px;
+          font-size: 0.75em;
+      }
+
+      /* Removed redundant navigation adjustments (handled in components.css) */
+ }
+
+/* --- Profile Feature Positioning --- */
+/* Positioned on the top right, outside the main flow */
+#profile-feature-container {
+    position: absolute;
+    top: 40px; /* Adjusted slightly for larger image */
+    right: 55px; /* Increased offset to move left */
+    z-index: 910; /* Above main content, below main nav if it overlaps, but above general page elements */
+}
+
+/* Adjustments when the main navigation is a fixed sidebar */
+body:has(#main-nav:not(.hidden)) #profile-feature-container {
+    /* When sidebar is active, profile feature should be to the right of the sidebar,
+       but still within the viewport's right edge.
+       The main container has margin-left: 260px.
+       The profile feature is absolutely positioned relative to the body.
+       Increasing the 'right' offset moves it left, improving alignment with the container edge.
+    */
+    top: 40px; /* Keep consistent top alignment */
+    right: 55px; /* Increased offset */
+}
+
+
+/* Responsive adjustments for profile feature positioning */
+@media (max-width: 768px) {
+    #profile-feature-container {
+        top: 30px; /* Adjust top for medium screens */
+        right: 40px; /* Adjust right for medium screens */
+    }
+    /* When sidebar collapses on medium screens, main container margin-left changes.
+       The increased right offset should still work reasonably well. */
+}
+
+@media (max-width: 600px) {
+    /* When navigation becomes a top bar again on small screens */
+    #profile-feature-container {
+        top: 25px; /* Adjust to align nicely with top nav */
+        right: 25px; /* Adjust right for small screens */
+        /* Profile image is now 70px. Top nav height varies. Fine-tune if needed. */
+    }
+
+    /* If the main nav is visible (logged in) and it's a top bar */
+    body:has(#main-nav:not(.hidden)) #profile-feature-container {
+        /* Check if main-nav is a static top bar */
+        /* The main-nav itself has margin-bottom: 15px on small screens. */
+        top: 25px; /* Align near top */
+        right: 25px;
+    }
+
+    /* If auth-nav is visible (welcome page) */
+    body:has(#auth-nav:not(.hidden)) #profile-feature-container {
+        /* On the welcome page, the profile feature should be hidden by default via its own .hidden class and data-page attribute.
+           So, no specific positioning override needed here if it's correctly hidden.
+           If it were to be shown, it would also be top: 20px, right: 20px.
+        */
+    }
+}

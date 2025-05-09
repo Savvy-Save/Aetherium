@@ -1,0 +1,19 @@
+/**
+ * spider-cursor.css: Styles for the spider cursor effect.
+ *
+ * Purpose:
+ *  - Styles the canvas element that draws the spider cursor effect.
+ *  - Ensures the canvas covers the entire screen, is positioned behind other content,
+ *    and doesn't interfere with mouse interactions.
+ */
+
+#spider-canvas {
+  position: fixed; /* Fixed positioning relative to the viewport */
+  top: 0;           /* Cover the entire top edge */
+  left: 0;          /* Cover the entire left edge */
+  width: 100%;       /* Cover the entire width */
+  height: 100%;      /* Cover the entire height */
+  z-index: -1;        /* Position behind all other content */
+  pointer-events: none; /* Ensure the canvas doesn't capture mouse events */
+  background: transparent; /* Make the canvas background transparent */
+}

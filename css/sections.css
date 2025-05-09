@@ -1,0 +1,311 @@
+/**
+ * sections.css: Section Specific Styles
+ *
+ * Purpose:
+ *  - Defines styles that are specific to the main content sections of the application.
+ *  - Includes styles for the authentication sections (Sign Up, Log In) and the password manager sections (Vault, Accounts, About, Settings).
+ */
+
+/* --- Authentication Sections (Sign Up/Log In) --- */
+.auth-section {
+    /* Base styles if any needed for all auth sections */
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.auth-toggle-link {
+    text-align: center;
+    margin-top: 1.5rem; /* Increased margin */
+    font-size: 0.95rem;
+}
+
+.auth-toggle-link a {
+    color: var(--primary-color); /* Use theme primary color */
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease; /* Add transition */
+}
+
+.auth-toggle-link a:hover {
+    color: var(--primary-color-hover); /* Use theme hover color */
+    text-decoration: underline;
+}
+
+/* --- Password Manager Sections (Vault, Accounts, About, Settings) --- */
+.password-manager-section {
+    /* display: none; Handled by .hidden utility */
+}
+
+/* Vault Section Specifics */
+.vault-section .vault-form {
+    margin-top: 1.5rem;
+    border-top: 1px solid var(--border-color-light); /* Use variable */
+    padding-top: 1.5rem;
+    transition: border-color 0.3s ease;
+}
+
+/* Accounts Section Specifics */
+.accounts-section .vault-list {
+    /* Styles specific to the list container in accounts */
+}
+
+#vaults-container p { /* Style for 'No vaults added yet' message */
+    text-align: center;
+    color: var(--text-color-lighter); /* Use variable */
+    margin-top: 1rem;
+    font-style: italic;
+    transition: color 0.3s ease;
+}
+
+/* ==================== History Section ==================== */
+#history-section {
+    /* Add padding or other section-level styles if needed */
+}
+
+.history-controls {
+    display: flex;
+    flex-wrap: wrap; /* Allow controls to wrap on smaller screens */
+    gap: 10px; /* Space between controls */
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background-color: var(--container-background-lighter); /* Slightly lighter background for controls */
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-color-light);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.history-controls input[type="date"] { /* Keep date input styles */
+    padding: 8px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    background-color: var(--input-background);
+    color: var(--text-color);
+    font-size: 0.9rem;
+    transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+}
+
+.history-controls input[type="date"]:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px var(--primary-color-transparent);
+}
+
+/* --- Custom Dropdown Styles --- */
+.custom-dropdown {
+    position: relative;
+    display: inline-block;
+    width: 200px; /* Fixed width for alignment */
+    min-width: 150px;
+    vertical-align: top;
+}
+
+.dropdown-button {
+    width: 100%;
+    padding: 8px 30px 8px 12px; /* Space for arrow */
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    background-color: var(--input-background);
+    color: var(--text-color);
+    font-size: 0.9rem;
+    text-align: left;
+    cursor: pointer;
+    position: relative;
+    transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+    display: flex; /* Align text and icon */
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dropdown-button:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px var(--primary-color-transparent);
+}
+
+.dropdown-button svg {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1em;
+    height: 1em;
+    fill: var(--text-color-lighter);
+    transition: transform 0.2s ease;
+}
+
+.dropdown-button[aria-expanded="true"] svg {
+    transform: translateY(-50%) rotate(180deg);
+}
+
+.dropdown-options {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    /* Remove margin-top to eliminate the gap */
+    margin-top: 0;
+    background-color: var(--container-background);
+    border: 1px solid var(--border-color);
+    border-top: none;
+    border-radius: 0 0 var(--border-radius) var(--border-radius);
+    z-index: 999;
+    max-height: 200px;
+    overflow-y: auto;
+    box-shadow: 0 8px 24px 4px rgba(0,0,0,0.45); /* Stronger shadow, less transparency */
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.dropdown-options.hidden {
+    display: none;
+}
+
+.dropdown-option {
+    padding: 10px 12px;
+    cursor: pointer;
+    color: var(--text-color); /* Light mode text */
+    transition: background-color 0.2s ease;
+}
+
+.dropdown-option:hover {
+    background-color: var(--container-background-lighter);
+}
+
+.history-controls button {
+    /* Use existing .action-button styles from components.css */
+    /* Add specific overrides if needed */
+    padding: 8px 15px; /* Adjust padding */
+    font-size: 0.9rem;
+}
+.history-controls button#history-delete-selected-btn:disabled {
+    background-color: var(--button-disabled-bg);
+    color: var(--button-disabled-text);
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/* Dark Mode for History Controls */
+body.dark-mode .history-controls {
+    background-color: var(--container-background-lighter-dark);
+    border-color: var(--border-color-dark);
+}
+
+body.dark-mode .history-controls input[type="date"] {
+    background-color: var(--input-background-dark);
+    border-color: var(--border-color-dark);
+    color: var(--text-color-dark);
+}
+
+/* Dark Mode for Custom Dropdown */
+body.dark-mode .dropdown-button {
+    background-color: var(--input-background-dark);
+    border-color: var(--border-color-dark);
+    color: var(--text-color-dark);
+}
+
+body.dark-mode .dropdown-button svg {
+    fill: var(--text-color-lighter-dark);
+}
+
+body.dark-mode .dropdown-options {
+    background-color: #23243a; /* Solid dark background for options */
+    border-color: var(--border-color-dark);
+    box-shadow: 0 8px 24px 4px rgba(0,0,0,0.85); /* Stronger, less transparent shadow */
+}
+
+body.dark-mode .dropdown-option {
+    color: var(--text-color-dark); /* Dark mode text for options */
+}
+
+body.dark-mode .dropdown-option:hover {
+    background-color: var(--container-background-lighter-dark);
+}
+
+body.dark-mode .history-controls button#history-delete-selected-btn:disabled {
+    background-color: var(--button-disabled-bg-dark);
+    color: var(--button-disabled-text-dark);
+}
+
+body.dark-mode .history-controls input[type="date"]:focus,
+body.dark-mode .history-controls select:focus {
+    border-color: var(--primary-color); /* Keep primary color for focus */
+    box-shadow: 0 0 0 2px var(--primary-color-transparent); /* Keep primary color for focus */
+}
+
+
+/* About Section Specifics */
+.about-section p {
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    color: var(--text-color-light); /* Use variable */
+    transition: color 0.3s ease;
+}
+
+/* Settings Section Specifics */
+#user-settings p {
+    margin-bottom: 12px;
+    font-size: 0.95rem;
+    color: var(--text-color); /* Use main text color */
+    line-height: 1.5;
+    transition: color 0.3s ease;
+}
+
+#user-settings strong {
+    color: var(--text-color-light); /* Use lighter text for label */
+    min-width: 80px; /* Align values */
+    display: inline-block;
+    transition: color 0.3s ease;
+}
+
+/* --- About Us Section --- */
+/* Styles moved from components.css */
+#about-section {
+    max-width: 700px;
+    margin: 30px auto;
+    padding: 2rem;
+    background: var(--container-background); /* Use variable */
+    border-radius: 15px;
+    box-shadow: 0 8px 20px var(--shadow-color); /* Use variable */
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    color: var(--text-color); /* Use variable */
+    transition: all 0.3s ease;
+    border: 1px solid var(--border-color-light); /* Add subtle border */
+}
+
+#about-section h2 {
+    text-align: center;
+    font-size: 2rem;
+    color: var(--primary-color); /* Use variable */
+    margin-bottom: 1rem;
+    transition: color 0.3s ease;
+}
+
+/* Merged with existing .about-section p rule */
+/* #about-section p {
+    font-size: 1.05rem;
+    margin-bottom: 1rem;
+} */
+
+#about-section ul {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 1rem;
+}
+
+#about-section ul li {
+    margin-bottom: 0.5rem;
+    padding-left: 1.5em;
+    position: relative;
+}
+
+#about-section ul li::before {
+    content: "✔";
+    position: absolute;
+    left: 0;
+    color: var(--primary-color); /* Use variable */
+    font-weight: bold;
+    transition: color 0.3s ease;
+}

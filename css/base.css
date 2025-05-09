@@ -1,0 +1,562 @@
+/*!
+/**
+ * base.css: Base Styles
+ *
+ * Purpose:
+ *  - Resets default browser styles to ensure consistency across different browsers.
+ *  - Defines global styles for basic HTML elements (body, typography, links, etc.).
+ *  - Sets the foundation for the overall visual theme of the application.
+ */
+
+/*!
+ * Reset.css v2.0 | MIT License | git.io/reset
+ */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/* ================= Theme Variables ================= */
+:root {
+    /* Default Theme: Purple */
+    --primary-color: #9400D3; /* DarkViolet */
+    --primary-color-hover: #800080; /* Darker Purple */
+    --primary-color-light: #a991d4; /* Lighter purple for dark mode headings */
+    --primary-color-dark-active: #7a5af5; /* Lighter purple for dark mode buttons */
+    --primary-color-dark-hover: #6a4cf0; /* Darker hover for dark mode buttons */
+
+    --secondary-color-light: #e6e6fa; /* Lavender */
+    --secondary-color-medium: #d8bfd8; /* Thistle */
+    --secondary-color-dark: #4a4a5f; /* Dark mode nav active bg */
+
+    --accent-color: #6a5acd; /* SlateBlue */
+    --accent-color-hover: color-mix(in srgb, var(--accent-color) 85%, black);
+
+    --background-color: #f4f4f8; /* Neutral light grey */
+    --container-background: #ffffff;
+    --text-color: #333333;
+    --text-color-light: #555555;
+    --text-color-lighter: #777;
+    --border-color: #d1d1d1;
+    --border-color-light: #e1e1e1;
+    --input-background: #ffffff;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+
+    /* Define nav backgrounds per theme later */
+    --nav-text-color: var(--text-color-light);
+    /* Active nav uses primary color by default - These will be overridden per theme */
+    --nav-active-bg: var(--primary-color);
+    --nav-active-text: var(--notification-text); /* Usually white */
+
+    /* Dark Mode Defaults (within :root for easier override) */
+    --dark-background-color: #1e1e2f; /* Slightly different dark bg */
+    --dark-container-background: #2c2c3f;
+    --dark-text-color: #f0f0f0; /* Brighter default dark text */
+    --dark-text-color-light: #d8d8d8;
+    --dark-text-color-lighter: #b0b0b0;
+    --dark-border-color: #55556f;
+    --dark-border-color-light: #45455f;
+    --dark-input-background: #38384f;
+    --dark-shadow-color: rgba(0, 0, 0, 0.5);
+    /* Define dark nav backgrounds per theme later */
+    --dark-nav-text-color: var(--dark-text-color); /* Use main dark text for nav */
+    --dark-nav-item-color: var(--dark-text-color-light); /* Default item color */
+    /* Active dark nav uses dark primary active color by default - These will be overridden per theme */
+    --dark-nav-active-bg: var(--primary-color-dark-active);
+    --dark-nav-active-text: #ffffff; /* Usually white */
+
+    /* Danger Colors */
+    --danger-color: #dc3545;
+    --danger-color-hover: #c82333;
+    --danger-color-dark: #e57373;
+    --danger-color-dark-hover: #ef5350;
+    --danger-text-dark: #111;
+
+    /* Success Colors */
+    --success-color: #4CAF50;
+    --success-color-dark: #66bb6a;
+    --success-text-dark: #111;
+
+    /* Notification Colors */
+    --notification-text: white;
+}
+
+/* --- Blue Theme Overrides --- */
+body[data-theme-color="blue"] {
+    --primary-color: #1E90FF; /* DodgerBlue */
+    --primary-color-hover: #187bcd;
+    --primary-color-light: #64b5f6;
+    --primary-color-dark-active: #4ca1ff;
+    --primary-color-dark-hover: #3c91f0;
+
+    --secondary-color-light: #cceeff; /* Lighter blue */
+    --secondary-color-medium: #aaddff; /* Light sky blue */
+    --secondary-color-dark: #3a5a7f; /* Keep */
+
+    --accent-color: #4682B4; /* SteelBlue */
+    --accent-color-hover: color-mix(in srgb, var(--accent-color) 85%, black);
+
+    /* Dark mode specific overrides */
+    --dark-background-color: #1a2a3e; /* Dark blueish */
+    --dark-container-background: #2a3a4f;
+    --dark-border-color: #506a8a;
+    --dark-border-color-light: #405a7a;
+    --dark-input-background: #3a4a5f;
+    /* Theme-specific Nav Active States */
+    --nav-active-bg: var(--primary-color);
+    --nav-active-text: var(--notification-text);
+    --dark-nav-active-bg: var(--primary-color-dark-active);
+    --dark-nav-active-text: #ffffff;
+    --dark-secondary-color-dark: #3a5a7f; /* Re-declare for solid dark */
+}
+/* No separate dark mode block needed if vars are set here */
+
+/* --- Green Theme Overrides --- */
+body[data-theme-color="green"] {
+    --primary-color: #32CD32; /* LimeGreen */
+    --primary-color-hover: #28a428;
+    --primary-color-light: #81c784;
+    --primary-color-dark-active: #50d050;
+    --primary-color-dark-hover: #40c040;
+
+    --secondary-color-light: #d0f0d0; /* Lighter green */
+    --secondary-color-medium: #b0e0b0; /* Medium light green */
+    --secondary-color-dark: #3a6a3f; /* Keep */
+
+    --accent-color: #2E8B57; /* SeaGreen */
+    --accent-color-hover: color-mix(in srgb, var(--accent-color) 85%, black);
+
+    /* Dark mode specific overrides */
+    --dark-background-color: #1a3a1e; /* Dark greenish */
+    --dark-container-background: #2a4a2f;
+    --dark-border-color: #508a5a;
+    --dark-border-color-light: #407a4a;
+    --dark-input-background: #3a5a3f;
+    /* Theme-specific Nav Active States */
+    --nav-active-bg: var(--primary-color);
+    --nav-active-text: var(--notification-text);
+    --dark-nav-active-bg: var(--primary-color-dark-active);
+    --dark-nav-active-text: #ffffff;
+    --dark-secondary-color-dark: #3a6a3f; /* Re-declare for solid dark */
+}
+/* No separate dark mode block needed if vars are set here */
+
+/* --- Yellow Theme Overrides --- */
+/* Note: Yellow themes can be tricky for accessibility, especially dark mode */
+body[data-theme-color="yellow"] {
+    --primary-color: #FFD700; /* Gold */
+    --primary-color-hover: #ccac00;
+    --primary-color-light: #fff176; /* Light yellow for dark mode headings */
+    --primary-color-dark-active: #ffe040;
+    --primary-color-dark-hover: #ffd030;
+
+    --secondary-color-light: #fffacd; /* LemonChiffon */
+    --secondary-color-medium: #fff0b0; /* Lighter yellow */
+    --secondary-color-dark: #7f7a3f; /* Keep */
+
+    --accent-color: #DAA520; /* Goldenrod */
+    --accent-color-hover: color-mix(in srgb, var(--accent-color) 85%, black);
+
+    /* Adjust text colors for light yellow background */
+    --text-color: #444; /* Darker text on light yellow */
+    --text-color-light: #666;
+    --nav-text-color: #555;
+    --nav-active-text: #333; /* Dark text for active yellow */
+
+    /* Dark mode specific overrides */
+    --dark-background-color: #3e3a1e; /* Dark yellowish */
+    --dark-container-background: #4f4a2f;
+    --dark-border-color: #8a8a5a;
+    --dark-border-color-light: #7a7a4a;
+    --dark-input-background: #5f5a3f;
+    --dark-nav-active-bg: var(--primary-color-dark-active);
+    --dark-secondary-color-dark: #7f7a3f; /* Re-declare for solid dark */
+
+    /* Adjust dark text for yellow theme */
+    --dark-text-color: #f5f5dc; /* Beige */
+    --dark-text-color-light: #e0e0c0;
+    --dark-nav-text-color: #f5f5dc;
+    --dark-nav-item-color: #e0e0c0;
+    /* Theme-specific Nav Active States */
+    --nav-active-bg: var(--primary-color);
+    --nav-active-text: #333333; /* Dark text for light yellow active */
+    --dark-nav-active-bg: var(--primary-color-dark-active);
+    --dark-nav-active-text: #333333; /* Dark text for dark yellow active */
+    --dark-secondary-color-dark: #7f7a3f; /* Re-declare for solid dark */
+}
+/* No separate dark mode block needed if vars are set here */
+
+/* --- Nav Background Definitions (Gradient/Solid) --- */
+/* Default Gradient */
+body:not([data-theme-style="solid"]) {
+    --nav-background: linear-gradient(90deg, var(--secondary-color-light), var(--secondary-color-medium));
+    --dark-nav-background: linear-gradient(90deg, var(--dark-container-background), var(--dark-input-background));
+}
+/* Solid Override */
+body[data-theme-style="solid"] {
+    --nav-background: var(--secondary-color-medium);
+    /* Theme-specific dark solid backgrounds */
+    --dark-nav-background: var(--dark-secondary-color-dark); /* Default solid dark */
+}
+/* No need for individual theme overrides here if dark-secondary-color-dark is defined per theme */
+
+
+/* ================= Base Styles (Using Variables) ================= */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-color); /* Neutral background */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.container { /* Main content container */
+    background-color: var(--container-background);
+    padding: 1.875rem;
+    border-radius: 0.625rem;
+    box-shadow: 0 0.25rem 0.5rem var(--shadow-color);
+    width: 90%;
+    max-width: 30rem; /* Keep max-width for auth container */
+    margin-bottom: 1.875rem;
+    box-sizing: border-box;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    border: 1px solid var(--border-color-light); /* Add subtle border */
+}
+
+/* Basic Typography */
+h2 {
+    text-align: center;
+    color: var(--primary-color);
+    margin-bottom: 1.25rem;
+    font-weight: 600;
+    font-size: 1.5rem; /* Default size */
+    transition: color 0.3s ease;
+}
+
+h3 {
+    color: var(--accent-color);
+    margin-top: 0.9375rem;
+    margin-bottom: 0.625rem;
+    font-weight: 500;
+    font-size: 1.2rem; /* Default size */
+    transition: color 0.3s ease;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.375rem;
+    color: var(--text-color-light);
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: color 0.3s ease;
+}
+
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+a:hover {
+    color: var(--primary-color-hover);
+    text-decoration: underline;
+}
+
+
+/* Ensure box-sizing consistency */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+/* ================= Dark Mode Styles (Using Variables) ================= */
+body.dark-mode {
+    --background-color: var(--dark-background-color);
+    --container-background: var(--dark-container-background);
+    --text-color: var(--dark-text-color);
+    --text-color-light: var(--dark-text-color-light);
+    --text-color-lighter: var(--dark-text-color-lighter);
+    --border-color: var(--dark-border-color);
+    --border-color-light: var(--dark-border-color-light);
+    --input-background: var(--dark-input-background);
+    --shadow-color: var(--dark-shadow-color);
+
+    /* Apply dark nav variables (excluding active state, handled by theme) */
+    --nav-background: var(--dark-nav-background);
+    --nav-text-color: var(--dark-nav-text-color);
+    /* --nav-active-bg: var(--dark-nav-active-bg); <-- REMOVED */
+    /* --nav-active-text: var(--dark-nav-active-text); <-- REMOVED */
+}
+
+/* Specific Dark Mode Overrides */
+body.dark-mode h2 {
+    color: var(--primary-color-light);
+}
+
+body.dark-mode h3 {
+    /* Use primary light color for better contrast in dark mode subheadings */
+    color: var(--primary-color-light);
+}
+
+body.dark-mode label {
+    color: var(--dark-text-color-light); /* Use lighter dark text for labels */
+}
+/* Ensure settings text is bright */
+body.dark-mode #user-settings p {
+    color: var(--dark-text-color); /* Use main dark text color */
+}
+body.dark-mode #user-settings p strong { /* Make the label part slightly less bright */
+    color: var(--dark-text-color-light);
+    margin-right: 0.5em;
+}
+
+
+body.dark-mode a {
+    color: var(--primary-color-light); /* Use light primary for links */
+}
+body.dark-mode a:hover {
+    color: color-mix(in srgb, var(--primary-color-light) 80%, white);
+}
+
+/* Forms & Inputs */
+body.dark-mode input[type="text"],
+body.dark-mode input[type="password"],
+body.dark-mode input[type="email"],
+body.dark-mode input[type="date"],
+body.dark-mode select,
+body.dark-mode input[type="number"] {
+    background-color: var(--dark-input-background);
+    color: var(--dark-text-color);
+    border: 1px solid var(--dark-border-color);
+}
+body.dark-mode input::placeholder {
+    color: var(--dark-text-color-lighter);
+}
+
+body.dark-mode .password-toggle {
+    color: var(--dark-text-color-lighter);
+}
+
+body.dark-mode .checkbox-label {
+    color: var(--dark-text-color-light);
+}
+/* Apply accent color for checkboxes */
+input[type="checkbox"] {
+     accent-color: var(--primary-color);
+}
+body.dark-mode input[type="checkbox"] {
+     accent-color: var(--primary-color-dark-active);
+}
+/* Radio buttons will be styled manually */
+
+
+body.dark-mode input[type="file"] {
+    background-color: var(--dark-input-background);
+    border: 1px dashed var(--dark-border-color);
+    color: var(--dark-text-color-light);
+}
+
+body.dark-mode input[type="file"]::-webkit-file-upload-button {
+    background-color: var(--primary-color-dark-active);
+    color: var(--dark-nav-active-text); /* Usually white/light */
+    border: none;
+}
+body.dark-mode input[type="file"]::-webkit-file-upload-button:hover {
+    background-color: var(--primary-color-dark-hover);
+}
+
+/* Buttons */
+body.dark-mode button.auth-button,
+body.dark-mode button.action-button,
+body.dark-mode .pin-actions button.action-button,
+body.dark-mode .edit-vault-box button.action-button,
+body.dark-mode .forgot-password-actions .action-button {
+    background-color: var(--primary-color-dark-active);
+    color: var(--dark-nav-active-text); /* Usually white/light */
+}
+body.dark-mode button.auth-button:hover,
+body.dark-mode button.action-button:hover,
+body.dark-mode .pin-actions button.action-button:hover,
+body.dark-mode .edit-vault-box button.action-button:hover,
+body.dark-mode .forgot-password-actions .action-button:hover {
+    background-color: var(--primary-color-dark-hover);
+}
+
+body.dark-mode button.danger-button {
+    background-color: var(--danger-color-dark);
+    color: var(--danger-text-dark);
+}
+body.dark-mode button.danger-button:hover {
+    background-color: var(--danger-color-dark-hover);
+}
+
+/* Navigation */
+body.dark-mode nav.main-navigation,
+body.dark-mode nav.auth-navigation {
+    background: var(--nav-background); /* Already overridden by dark mode scope */
+    color: var(--nav-text-color);
+    box-shadow: 0 4px 12px var(--dark-shadow-color);
+}
+
+body.dark-mode nav li.nav-item {
+    color: var(--dark-nav-item-color); /* Default item color */
+}
+
+body.dark-mode nav li.nav-item:hover,
+body.dark-mode nav li.nav-item.active {
+    background-color: var(--nav-active-bg); /* Use active bg variable */
+    color: var(--nav-active-text); /* Use active text variable */
+}
+
+/* Overlays */
+body.dark-mode .pin-request-overlay,
+body.dark-mode .edit-vault-overlay,
+body.dark-mode .forgot-password-overlay,
+body.dark-mode .delete-account-confirm-overlay {
+    background-color: rgba(0, 0, 0, 0.75);
+}
+
+body.dark-mode .pin-request-box,
+body.dark-mode .edit-vault-box,
+body.dark-mode .forgot-password-box,
+body.dark-mode .delete-account-confirm-box {
+    background-color: var(--dark-container-background);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--dark-border-color-light);
+}
+
+body.dark-mode .pin-request-box h3,
+body.dark-mode .edit-vault-box h3,
+body.dark-mode .forgot-password-box h3 {
+    color: var(--primary-color-light);
+}
+body.dark-mode .delete-account-confirm-box h3 {
+    color: var(--danger-color-dark);
+}
+
+body.dark-mode .forgot-password-box p,
+body.dark-mode .delete-account-confirm-box p,
+body.dark-mode .vault-details {
+    color: var(--dark-text-color-light);
+}
+body.dark-mode .delete-account-confirm-box p strong {
+    color: var(--danger-color-dark);
+}
+
+/* Vault Items */
+body.dark-mode .vault-item {
+    background-color: var(--dark-input-background); /* Use input bg for consistency */
+    border: 1px solid var(--dark-border-color);
+}
+body.dark-mode .vault-item:hover {
+    background-color: color-mix(in srgb, var(--dark-input-background) 85%, white); /* Slightly lighter */
+}
+body.dark-mode .vault-item h3 {
+    color: var(--dark-text-color); /* Use main dark text for titles */
+}
+
+body.dark-mode .vault-item-icon {
+    background-color: var(--dark-border-color); /* Use border color */
+    color: var(--dark-text-color-light);
+}
+
+/* Settings Toggle */
+body.dark-mode .settings-option {
+    border-bottom: 1px solid var(--dark-border-color-light);
+}
+body.dark-mode .toggle-label {
+    color: var(--dark-text-color);
+}
+body.dark-mode .switch input[type="checkbox"] {
+     accent-color: var(--primary-color-dark-active); /* Theme toggle */
+}
+body.dark-mode .slider {
+    background-color: #555; /* Keep specific color for inactive slider */
+}
+body.dark-mode input:checked + .slider {
+    background-color: var(--primary-color-dark-active); /* Use themed active color */
+}
+body.dark-mode .slider:before {
+    background-color: #ddd; /* Keep specific color for handle */
+}
+
+/* Developer Info Box (Now uses accent color) */
+/* Developer Info Box (Now uses accent color & themed dark mode) */
+body.dark-mode .dev-toggle-button {
+    background-color: var(--accent-color); /* Use accent color from theme */
+    color: var(--notification-text); /* Usually white */
+}
+body.dark-mode .dev-toggle-button:hover {
+     background-color: var(--accent-color-hover); /* Use accent hover from theme */
+}
+body.dark-mode .dev-content {
+    background-color: var(--dark-input-background);
+    color: var(--dark-text-color);
+    border: 1px solid var(--dark-border-color);
+}
+
+/* Password Strength */
+body.dark-mode #password-strength-indicator {
+    background-color: var(--dark-container-background);
+    border: 1px solid var(--dark-border-color-light);
+}
+body.dark-mode #strength-text {
+    color: var(--dark-text-color-lighter);
+}
+
+/* Notifications */
+body.dark-mode .notification.success {
+    background-color: var(--success-color-dark);
+    color: var(--success-text-dark);
+}
+body.dark-mode .notification.error {
+    background-color: var(--danger-color-dark); /* Use dark danger color */
+    color: var(--danger-text-dark);
+}
+
+/* Spider Cursor */
+body.dark-mode .spider {
+    /* Example: filter: invert(1) brightness(1.5); */
+}

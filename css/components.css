@@ -1,0 +1,1517 @@
+/**
+ * components.css: Component Styles
+ *
+ * Purpose:
+ *  - Defines styles for reusable UI components used throughout the application.
+ *  - Includes styles for navigation bars, buttons, forms, inputs, overlays, and other modular elements.
+ */
+
+/* Developer Toggle Container */
+.dev-toggle-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 330px;
+  background-color: transparent;
+  border-radius: 10px;
+  overflow: visible;
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+  color: #fff;
+  z-index: 9999;
+}
+
+.dev-toggle-button {
+  padding: 15px;
+  text-align: center;
+  cursor: pointer;
+  background-color: var(--accent-color); /* Use accent color */
+  color: var(--notification-text); /* Use notification text color (usually white) */
+  transition: background-color 0.25s ease, transform 0.25s ease;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px var(--shadow-color);
+  position: relative;
+  z-index: 2;
+}
+
+.dev-toggle-container.open .dev-toggle-button {
+  transform: translateY(-125px);
+}
+
+.dev-toggle-button:hover {
+  background-color: color-mix(in srgb, var(--accent-color) 85%, black); /* Darken accent */
+}
+
+.arrow-icon {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.dev-toggle-container.open .arrow-icon {
+  transform: rotate(180deg);
+}
+
+.dev-content {
+  background-color: var(--secondary-color-light); /* Use light secondary */
+  color: var(--text-color); /* Use base text color */
+  padding: 18px;
+  font-size: 1.14rem;
+  line-height: 1.5;
+  overflow: hidden;
+  transform-origin: top;
+  transform: translateY(-20px);
+  opacity: 0;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  z-index: 1;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+.dev-toggle-container.open .dev-content {
+  transform: translateY(0);
+  opacity: 1;
+  transition-delay: 0.4s;
+}
+
+.dev-content ul {
+  margin: 10px 0 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.dev-content li {
+  margin-bottom: 5px;
+  padding-left: 0;
+}
+
+/* --- Navigation --- */
+/* Base styles for both navs */
+nav.main-navigation,
+nav.auth-navigation {
+    background: var(--nav-background); /* Use nav background variable */
+    color: var(--nav-text-color); /* Use nav text color variable */
+    padding: 24px 0;
+    max-width: 1100px;
+    width: 95%;
+    margin: 25px auto; /* Centered with vertical margin */
+    box-shadow: 0 4px 12px var(--shadow-color); /* Use shadow variable */
+    border-radius: 16px;
+    display: flex;
+    justify-content: center;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.nav-wrapper {
+    max-width: 900px;
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+}
+
+nav ul.nav-list {
+    list-style-type: none;
+    padding: 0 1rem; /* Add some padding */
+    margin: 0;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    justify-content: center; /* Center the list items within the ul */
+}
+
+nav li.nav-item {
+    padding: 0.8rem 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 8px;
+    margin: 0 0.5rem;
+    font-weight: 500;
+    font-size: 1.05rem;
+    white-space: nowrap;
+    position: relative;
+}
+
+nav li.nav-item:hover,
+nav li.nav-item.active {
+    background-color: var(--nav-active-bg); /* Base active state using theme vars */
+    color: var(--nav-active-text);
+    border-radius: 20px; /* Make it oblong */
+}
+/* Ensure theme overrides apply with specificity */
+body[data-theme-color] nav li.nav-item:hover,
+body[data-theme-color] nav li.nav-item.active {
+    background-color: var(--nav-active-bg); /* Re-apply with theme context */
+    color: var(--nav-active-text);
+}
+body.dark-mode[data-theme-color] nav li.nav-item:hover,
+body.dark-mode[data-theme-color] nav li.nav-item.active {
+    background-color: var(--nav-active-bg); /* Re-apply with dark mode + theme context */
+    color: var(--nav-active-text);
+}
+
+
+/* --- Buttons --- */
+button.auth-button,
+button.action-button,
+.pin-actions button.action-button, /* Specificity needed */
+.edit-vault-box button.action-button, /* Specificity needed */
+.forgot-password-actions .action-button { /* Specificity needed */
+    background-color: var(--primary-color); /* Use primary color */
+    color: var(--notification-text); /* Use notification text color (usually white) */
+    padding: 0.625rem 1.125rem;
+    border: none;
+    border-radius: 0.3125rem;
+    cursor: pointer;
+    width: 100%; /* Default to full width for auth buttons */
+    font-size: 0.95rem;
+    transition: background-color 0.2s ease;
+    font-weight: 500;
+    text-align: center;
+}
+
+/* Action buttons are typically smaller/inline */
+button.action-button,
+.pin-actions button.action-button,
+.edit-vault-box button.action-button,
+.forgot-password-actions .action-button {
+    width: auto; /* Override full width */
+    margin: 4px;
+}
+
+button.auth-button:hover,
+button.action-button:hover,
+.pin-actions button.action-button:hover,
+.edit-vault-box button.action-button:hover,
+.forgot-password-actions .action-button:hover {
+    background-color: var(--primary-color-hover); /* Use primary hover color */
+}
+
+/* Danger Button Style */
+button.danger-button {
+    background-color: var(--danger-color); /* Use danger color */
+    color: var(--notification-text); /* Use notification text color */
+}
+
+button.danger-button:hover {
+    background-color: var(--danger-color-hover); /* Use danger hover color */
+}
+
+
+/* Generate Password Button Specifics (within input-with-button) */
+.generate-password-button {
+    width: auto; /* Ensure it doesn't stretch */
+    margin-left: 8px; /* Keep space from input */
+    padding: 10px 16px; /* Specific padding */
+    font-size: 0.95rem;
+    border-radius: 5px;
+    flex-shrink: 0; /* Prevent shrinking */
+}
+
+/* --- Forms & Inputs --- */
+.form-group {
+    margin-bottom: 1rem; /* Use rem for consistency */
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="date"],
+select,
+input[type="number"] {
+    width: 100%;
+    padding: 0.625rem;
+    border: 1px solid var(--border-color); /* Use border color */
+    border-radius: 0.3125rem;
+    font-size: 1rem;
+    color: var(--text-color-light); /* Use light text color */
+    background-color: var(--input-background); /* Use input background */
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Password Container & Toggle */
+.password-container {
+    position: relative;
+    display: flex; /* Needed for icon positioning */
+    align-items: center;
+}
+
+/* Input within password container needs padding for the icon */
+.password-container input[type="password"],
+.password-container input[type="text"] { /* Apply to text type too when toggled */
+    padding-right: 35px; /* Ensure space for icon */
+    flex-grow: 1; /* Allow input to grow if needed */
+}
+
+.password-toggle {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    padding: 6px;
+    opacity: 0.6;
+    font-size: 1.3em; /* Adjust as needed */
+    color: var(--text-color-lighter); /* Use lighter text color */
+    line-height: 1; /* Prevent icon affecting container height */
+    user-select: none; /* Prevent text selection */
+    transition: color 0.3s ease;
+}
+
+.password-toggle:hover {
+    opacity: 0.9;
+}
+
+/* Optional Fields (Checkbox + Input) */
+.optional-field {
+    margin-top: 8px;
+}
+
+.checkbox-label {
+    display: inline-block;
+    margin-left: 6px;
+    font-weight: normal;
+    font-size: 0.95rem;
+    color: var(--text-color-light); /* Use light text color */
+    vertical-align: middle; /* Align with checkbox */
+    transition: color 0.3s ease;
+}
+input[type="checkbox"] {
+     vertical-align: middle; /* Align with label */
+}
+
+/* Input with adjacent button */
+.input-with-button {
+    display: flex;
+    align-items: center;
+}
+
+.input-with-button .password-container { /* Target password container specifically */
+    flex-grow: 1;
+    margin-right: 10px; /* Space between input and button */
+    width: auto; /* Let flexbox handle width */
+}
+
+.input-with-button .password-container input {
+    width: 100%; /* Ensure input takes full width of its container */
+}
+
+/* Login form specific options */
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9em;
+    margin-top: -5px; /* Adjust vertical spacing */
+    margin-bottom: 10px; /* Space before login button */
+    color: var(--text-color-light); /* Use light text color */
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.remember-me input[type="checkbox"] {
+    margin: 0; /* Remove default margin */
+    vertical-align: middle;
+}
+
+.forgot-password-link {
+    color: var(--primary-color); /* Use primary color */
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.forgot-password-link:hover {
+    color: var(--primary-color-hover); /* Use primary hover color */
+    text-decoration: underline;
+}
+
+
+/* Image Upload Input */
+input[type="file"] {
+    padding: 0.5rem;
+    border: 1px dashed var(--border-color); /* Use border color */
+    background-color: var(--input-background); /* Use input background */
+    cursor: pointer;
+    border-radius: 0.3125rem;
+    font-size: 0.95rem;
+    display: block; /* Ensure it takes block space */
+    width: 100%;
+    margin-bottom: 5px; /* Space before remove button */
+}
+
+input[type="file"]::-webkit-file-upload-button {
+    padding: 0.5rem 0.75rem;
+    background-color: var(--primary-color); /* Use primary color */
+    color: var(--notification-text); /* Use notification text color */
+    border: none;
+    border-radius: 0.3125rem;
+    cursor: pointer;
+    margin-right: 0.625rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+}
+
+input[type="file"]::-webkit-file-upload-button:hover {
+    background-color: var(--primary-color-hover); /* Use primary hover color */
+}
+
+/* --- Password Strength Indicator --- */
+#password-strength-indicator {
+    margin-top: 6px;
+    font-size: 0.9rem;
+    border: 1px solid var(--border-color-light); /* Use light border color */
+    border-radius: 5px;
+    padding: 6px;
+    background-color: var(--container-background); /* Use container background */
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+#strength-bar {
+    height: 8px;
+    background-color: red; /* Default weak color */
+    width: 0%;
+    border-radius: 4px;
+    margin-bottom: 4px;
+    max-width: 100%;
+    transition: width 0.3s ease, background-color 0.3s ease; /* Add transition */
+}
+
+#strength-text {
+    font-size: 0.85rem;
+    color: var(--text-color-lighter); /* Use lighter text color */
+    margin-top: 2px;
+    font-weight: 400;
+    transition: color 0.3s ease;
+}
+
+/* --- Vault Items --- */
+.vault-item {
+    border: 1px solid var(--border-color-light); /* Use light border color */
+    padding: 5px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    background-color: var(--container-background); /* Use container background */
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.vault-item:hover {
+    background-color: color-mix(in srgb, var(--container-background) 95%, var(--primary-color)); /* Tint with primary */
+}
+
+.vault-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.vault-item-icon {
+    width: 100px; /* Default size */
+    height: 100px;
+    border-radius: 50%; /* Make it circular */
+    margin-right: 10px;
+    background-color: var(--border-color-light); /* Use light border color */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.3em;
+    color: var(--text-color-lighter); /* Use lighter text color */
+    flex-shrink: 0;
+    overflow: hidden; /* Hide overflow for images */
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.vault-item-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Cover the area */
+    display: block;
+}
+
+.vault-item h3 { /* Title within vault item */
+    margin: 15px;
+    color: var(--text-color); /* Use base text color */
+    font-size: 1.1rem;
+    flex-grow: 1; /* Allow title to take space */
+    word-break: break-word; /* Break long titles */
+    transition: color 0.3s ease;
+}
+
+.vault-details {
+    color: var(--text-color-light); /* Use light text color */
+    padding-left: 0; /* Reset padding if needed */
+    transition: color 0.3s ease;
+}
+
+.vault-details p {
+    line-height: 1.4;
+    margin-bottom: 4px;
+    font-size: 0.9rem;
+}
+
+.vault-actions {
+    margin-top: 8px;
+    display: flex;
+    justify-content: flex-start;
+    gap: 8px;
+    align-items: center;
+}
+
+.vault-actions button.action-button { /* Specific button styling within actions */
+    margin-right: 4px;
+    padding: 6px 12px;
+    font-size: 0.8em;
+    margin-bottom: 0;
+}
+
+/* Password Display within Vault Item */
+.password-display {
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap; /* Allow button to wrap on small screens */
+}
+
+.password-display strong {
+    margin-right: 5px;
+}
+
+.password-display .password-text {
+    word-break: break-all; /* Break long passwords */
+    margin-right: 8px; /* Space before button */
+}
+
+.password-display .show-password-button {
+    padding: 4px 8px;
+    font-size: 0.8em;
+    margin-left: auto; /* Push button to the right if space allows */
+    cursor: pointer;
+    flex-shrink: 0; /* Prevent button shrinking */
+}
+
+
+/* --- Overlays --- */
+.pin-request-overlay,
+.edit-vault-overlay,
+.forgot-password-overlay,
+.delete-account-confirm-overlay { /* Combine overlay styles */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Keep specific overlay color */
+    display: flex; /* Use flex for centering */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 1rem; /* Add padding for small screens */
+}
+
+.edit-vault-overlay {
+    z-index: 1010; /* Ensure edit is above PIN */
+    overflow-y: auto; /* Allow scrolling if content overflows */
+    align-items: flex-start; /* Align box to top */
+    padding-top: 5vh; /* Add some top padding */
+}
+
+.forgot-password-overlay {
+    z-index: 1005; /* Between PIN and Edit */
+}
+
+/* Overlay Content Boxes */
+.pin-request-box,
+.edit-vault-box,
+.forgot-password-box,
+.delete-account-confirm-box { /* Combine overlay box styles */
+    background-color: var(--container-background); /* Use container background */
+    padding: 1.5rem 2rem; /* Default padding */
+    border-radius: 8px;
+    box-shadow: 0 4px 15px var(--shadow-color); /* Use shadow variable */
+    text-align: center;
+    width: 90%; /* Default width */
+    max-width: 320px; /* Max width for PIN box */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    border: 1px solid var(--border-color-light); /* Add subtle border */
+}
+
+.edit-vault-box {
+    max-width: 460px; /* Max width for Edit box */
+    max-height: 90vh; /* Limit height */
+    overflow-y: auto; /* Scroll inside box if needed */
+    text-align: left; /* Align form content left */
+}
+
+.forgot-password-box {
+    max-width: 450px; /* Max width for Forgot Password box */
+    text-align: center; /* Center text */
+}
+.delete-account-confirm-box {
+    max-width: 480px; /* Slightly wider */
+    text-align: left; /* Align text left */
+}
+
+
+/* Overlay Headings */
+.pin-request-box h3,
+.edit-vault-box h3,
+.forgot-password-box h3 {
+    color: var(--primary-color); /* Use primary color */
+    margin-top: 0; /* Remove default margin */
+    margin-bottom: 1.5rem; /* Space below heading */
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+/* PIN Input Specifics */
+.pin-request-box input[type="password"] { /* Changed from text */
+    width: 80%;
+    margin: 1rem auto; /* Center input */
+    font-size: 1rem;
+    padding: 0.6rem;
+    border-radius: 5px;
+    text-align: center; /* Center PIN text */
+    display: block; /* Ensure it's block for margin auto */
+}
+
+.pin-actions {
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+/* Edit Vault Form Specifics */
+.edit-vault-box .form-group {
+    margin-bottom: 1rem;
+}
+
+/* Delete Account Heading */
+.delete-account-confirm-box h3 {
+    color: var(--danger-color); /* Use danger color */
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    font-size: 1.2rem;
+}
+
+
+/* Forgot Password / Delete Account Text */
+.forgot-password-box p,
+.delete-account-confirm-box p {
+    margin-bottom: 20px;
+    font-size: 0.95em;
+    color: var(--text-color-light); /* Use light text color */
+    transition: color 0.3s ease;
+}
+.delete-account-confirm-box p strong {
+    color: var(--danger-color); /* Use danger color */
+}
+
+
+#forgot-password-form,
+#delete-account-confirm-form { /* Target forms inside */
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Space between form groups */
+    margin-top: 1rem; /* Space above form */
+}
+
+.forgot-password-actions {
+    display: flex;
+    justify-content: space-between; /* Space out buttons */
+    margin-top: 1rem; /* Space above buttons */
+    gap: 10px; /* Gap between buttons */
+}
+
+/* Message styling for forgot password overlay */
+.forgot-password-box .message {
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    text-align: left; /* Align message text left */
+}
+
+/* Message styling for overlays */
+.forgot-password-box .message,
+.delete-account-confirm-box .message {
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    text-align: left;
+}
+
+.forgot-password-box .message.success,
+.delete-account-confirm-box .message.success {
+    background-color: color-mix(in srgb, var(--success-color) 20%, white); /* Light success */
+    color: color-mix(in srgb, var(--success-color) 80%, black); /* Dark success text */
+    border: 1px solid color-mix(in srgb, var(--success-color) 40%, white);
+}
+
+.forgot-password-box .message.error,
+.delete-account-confirm-box .message.error {
+    background-color: color-mix(in srgb, var(--danger-color) 20%, white); /* Light danger */
+    color: color-mix(in srgb, var(--danger-color) 80%, black); /* Dark danger text */
+    border: 1px solid color-mix(in srgb, var(--danger-color) 40%, white);
+}
+
+/* Dark mode message overrides */
+body.dark-mode .forgot-password-box .message.success,
+body.dark-mode .delete-account-confirm-box .message.success {
+    background-color: color-mix(in srgb, var(--success-color-dark) 25%, black); /* Darker success bg */
+    color: color-mix(in srgb, var(--success-color-dark) 85%, white); /* Lighter success text */
+    border: 1px solid color-mix(in srgb, var(--success-color-dark) 50%, black);
+}
+body.dark-mode .forgot-password-box .message.error,
+body.dark-mode .delete-account-confirm-box .message.error {
+    background-color: color-mix(in srgb, var(--danger-color-dark) 25%, black); /* Darker danger bg */
+    color: color-mix(in srgb, var(--danger-color-dark) 85%, white); /* Lighter danger text */
+    border: 1px solid color-mix(in srgb, var(--danger-color-dark) 50%, black);
+}
+
+/* ==================== History Table ==================== */
+.history-table {
+    width: 100%;
+    border-collapse: collapse; /* Remove space between borders */
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    background-color: var(--container-background);
+    border: 1px solid var(--border-color-light);
+    border-radius: var(--border-radius);
+    overflow: hidden; /* Clip content to border radius */
+    box-shadow: 0 2px 5px var(--shadow-color-light);
+    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.history-table th,
+.history-table td {
+    padding: 10px 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color-light);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+.history-table th {
+    background-color: var(--container-background-lighter);
+    font-weight: 600;
+    color: var(--text-color-light);
+}
+
+.history-table tbody tr:hover {
+    background-color: var(--container-background-lighter);
+}
+
+.history-table td:nth-child(1), /* Checkbox column */
+.history-table th:nth-child(1) {
+    width: 40px; /* Fixed width for checkbox */
+    text-align: center;
+}
+
+.history-table td:nth-child(6), /* Delete button column */
+.history-table th:nth-child(6) {
+    width: 60px; /* Fixed width for delete button */
+    text-align: center;
+}
+
+.history-table .history-delete-btn {
+    background: none;
+    border: none;
+    color: var(--danger-color);
+    cursor: pointer;
+    font-size: 1.1rem;
+    padding: 2px;
+    transition: color 0.2s ease;
+}
+
+.history-table .history-delete-btn:hover {
+    color: var(--danger-color-hover);
+}
+
+/* Dark Mode for History Table */
+body.dark-mode .history-table {
+    background-color: var(--container-background-dark);
+    border-color: var(--border-color-dark);
+    box-shadow: 0 2px 5px var(--shadow-color-dark);
+}
+
+body.dark-mode .history-table th,
+body.dark-mode .history-table td {
+    border-bottom-color: var(--border-color-dark);
+    color: var(--text-color-dark);
+}
+
+body.dark-mode .history-table th {
+    background-color: var(--container-background-lighter-dark);
+    color: var(--text-color-lighter-dark);
+}
+
+body.dark-mode .history-table tbody tr:hover {
+    background-color: var(--container-background-lighter-dark);
+}
+
+body.dark-mode .history-table .history-delete-btn {
+    color: var(--danger-color-dark);
+}
+
+body.dark-mode .history-table .history-delete-btn:hover {
+    color: var(--danger-color-hover-dark);
+}
+
+/* --- Notifications --- */
+.notification {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--notification-text);
+    padding: 15px 30px;
+    border-radius: 5px;
+    z-index: 1100; /* Above overlays */
+    text-align: center;
+    font-size: 1rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    opacity: 0; /* Start hidden for transition */
+    transition: opacity 0.5s ease;
+}
+
+.notification.success {
+    background-color: var(--success-color);
+}
+
+.notification.error {
+    background-color: var(--danger-color);
+}
+
+/* --- Sidebar Navigation (Overrides for Main Page) --- */
+/* Apply only when #main-nav is NOT hidden */
+body:has(#main-nav:not(.hidden)) #main-nav {
+    position: fixed; /* Keep sidebar fixed on screen */
+    left: 0;
+    top: 20px; /* Position from top */
+    height: calc(100vh - 40px); /* Full height minus top/bottom space */
+    width: 220px; /* Sidebar width */
+    margin: 0 20px; /* Remove top/bottom margin, keep left/right */
+    padding: 20px 0; /* Vertical padding */
+    flex-direction: column; /* Stack items vertically */
+    justify-content: flex-start; /* Align items to top */
+    align-items: center; /* Center items horizontally */
+    border-radius: 15px; /* Slightly larger radius */
+    z-index: 900; /* Ensure it's above content but below overlays */
+    /* Use nav variables */
+    background: var(--nav-background);
+    color: var(--nav-text-color);
+    box-shadow: 0 4px 12px var(--shadow-color);
+}
+
+body:has(#main-nav:not(.hidden)) #main-nav ul.nav-list {
+    flex-direction: column; /* Stack list items vertically */
+    align-items: stretch; /* Stretch items to fill width */
+    width: 100%; /* Use full width of sidebar */
+    padding: 0; /* Remove horizontal padding */
+    gap: 10px; /* Space between items */
+}
+
+body:has(#main-nav:not(.hidden)) #main-nav li.nav-item {
+    margin: 0 15px; /* Horizontal margin within sidebar */
+    padding: 12px 20px; /* Adjust padding for left alignment */
+    text-align: left; /* Align text to the left */
+    border-radius: 10px; /* Adjust radius */
+    white-space: normal; /* Allow wrapping if needed */
+}
+
+body:has(#main-nav:not(.hidden)) #main-nav li.nav-item:hover,
+body:has(#main-nav:not(.hidden)) #main-nav li.nav-item.active {
+    border-radius: 10px; /* Consistent radius */
+    /* Use nav active variables */
+    background-color: var(--nav-active-bg);
+    color: var(--nav-active-text);
+}
+
+
+/* --- Adjustments for Sidebar Layout --- */
+/* Prevent body centering and adjust container when sidebar is visible */
+body:has(#main-nav:not(.hidden)) {
+    align-items: flex-start; /* Override base centering */
+}
+body:has(#main-nav:not(.hidden)) main.container {
+    margin-left: 260px; /* sidebar width (220) + left margin (20) + right margin (20) */
+    margin-right: auto; /* Center container horizontally */
+    width: 90%; /* Responsive width */
+    max-width: 1000px; /* Wider max width for main page */
+    margin-top: 20px; /* Align outer top edge with sidebar's top: 20px */
+    margin-bottom: 20px; /* Match top/bottom margin */
+    padding: 2rem; /* Slightly larger padding */
+    transition: margin-left 0.3s ease, width 0.3s ease, max-width 0.3s ease, margin-top 0.3s ease; /* Smooth transition */
+}
+
+
+/* --- Adjustments for when auth-nav is visible (Welcome Page) --- */
+/* Ensure main container styles are reset when auth-nav is shown */
+body:has(#auth-nav:not(.hidden)) main.container {
+    margin-left: auto; /* Reset margin */
+    margin-right: auto; /* Ensure centering */
+    width: 90%; /* Re-apply base width */
+    max-width: 30rem; /* Re-apply base max-width */
+    margin-top: 30px; /* Set specific top margin */
+    margin-bottom: 1.875rem; /* Re-apply base bottom margin */
+    padding: 1.875rem; /* Re-apply base padding */
+}
+
+/* Ensure body alignment is reset too */
+body:has(#auth-nav:not(.hidden)) {
+     align-items: center; /* Re-apply base centering */
+}
+
+/* Ensure auth-nav retains its original layout when visible */
+body:has(#auth-nav:not(.hidden)) nav.auth-navigation {
+    position: static; /* Override fixed if somehow inherited */
+    height: auto;
+    width: 100%;
+    margin: 0 0 25px 0; /* Reset margin, add bottom margin */
+    padding: 8px 0;
+    flex-direction: row;
+    justify-content: center;
+    border-radius: 10px; /* Original radius */
+    /* Re-apply base styles using variables */
+    background: var(--nav-background);
+    color: var(--nav-text-color);
+    box-shadow: 0 2px 4px var(--shadow-color);
+}
+
+body:has(#auth-nav:not(.hidden)) nav.auth-navigation ul.nav-list {
+     flex-direction: row;
+     align-items: center;
+     justify-content: center;
+     width: auto; /* Reset width */
+     padding: 0 1rem; /* Original padding */
+     gap: 15px; /* Original gap */
+}
+
+body:has(#auth-nav:not(.hidden)) nav.auth-navigation li.nav-item {
+    padding: 0.625rem 1.125rem; /* Original padding */
+    margin: 0 0.5rem; /* Original margin */
+    text-align: left; /* Original alignment */
+    border-radius: 0.3125rem; /* Original radius */
+    white-space: nowrap; /* Original wrapping */
+}
+
+body:has(#auth-nav:not(.hidden)) nav.auth-navigation li.nav-item:hover,
+body:has(#auth-nav:not(.hidden)) nav.auth-navigation li.nav-item.active {
+    border-radius: 20px; /* Original oblong radius */
+    background-color: var(--nav-active-bg);
+    color: var(--nav-active-text);
+}
+
+
+/* --- Responsive Adjustments for Sidebar --- */
+@media (max-width: 768px) { /* Adjust breakpoint as needed */
+    /* Styles for collapsed sidebar */
+    body:has(#main-nav:not(.hidden)) #main-nav {
+        width: 60px; /* Collapse sidebar width */
+    }
+
+    body:has(#main-nav:not(.hidden)) #main-nav li.nav-item {
+        padding: 10px;
+        margin: 0 5px;
+        font-size: 0.8rem; /* Smaller text or hide text */
+        /* Add styles for icon-only view if desired */
+    }
+
+     /* Adjust container for collapsed sidebar */
+     body:has(#main-nav:not(.hidden)) main.container {
+        margin-left: 100px; /* Collapsed width (60) + left margin (20) + right margin (20) */
+        margin-right: 10px; /* Smaller right margin */
+        margin-top: 20px; /* Keep outer box top alignment */
+        padding: 1.875rem; /* Ensure base padding applies */
+     }
+
+     /* Ensure reset applies on medium screens for auth page */
+     body:has(#auth-nav:not(.hidden)) main.container {
+        margin-left: auto;
+        margin-right: auto;
+        width: 90%;
+        max-width: 30rem;
+        margin-top: 30px; /* Keep specific top margin */
+        margin-bottom: 1.875rem;
+        padding: 1.875rem;
+    }
+}
+
+@media (max-width: 600px) {
+    /* Revert sidebar to top nav */
+     body:has(#main-nav:not(.hidden)) #main-nav {
+        position: static;
+        width: 100%;
+        height: auto;
+        margin: 0 0 15px 0; /* Reset margin, add bottom margin */
+        flex-direction: row;
+        padding: 8px 0;
+        border-radius: 0; /* Remove radius */
+     }
+
+     body:has(#main-nav:not(.hidden)) #main-nav ul.nav-list {
+         flex-direction: row;
+         justify-content: center;
+         flex-wrap: wrap; /* Allow wrapping */
+         gap: 5px;
+         padding: 0 1rem;
+     }
+
+     body:has(#main-nav:not(.hidden)) #main-nav li.nav-item {
+         padding: 0.5rem 0.8rem;
+         font-size: 0.9rem;
+         margin: 0.2rem;
+         text-align: left; /* Reset text align */
+         border-radius: 20px; /* Oblong */
+     }
+
+     /* Reset container styles when sidebar reverts to top nav */
+     body:has(#main-nav:not(.hidden)) main.container {
+         margin-left: auto; /* Reset margin */
+         margin-right: auto; /* Reset margin */
+         width: 100%; /* Small screen uses 100% width from layout.css */
+         max-width: none; /* Remove max-width on small screens */
+         margin-top: auto; /* Reset top margin */
+         margin-bottom: 1rem; /* Re-apply small screen bottom margin from layout.css */
+         padding: 1rem; /* Re-apply small screen padding from layout.css */
+     }
+
+     /* Ensure auth-nav looks correct on small screens too */
+     body:has(#auth-nav:not(.hidden)) nav.auth-navigation {
+        border-radius: 0; /* Small screen radius */
+     }
+     body:has(#auth-nav:not(.hidden)) nav.auth-navigation ul.nav-list {
+         gap: 5px; /* Small screen gap */
+         padding: 0 1rem; /* Small screen padding */
+     }
+      body:has(#auth-nav:not(.hidden)) li.nav-item {
+         padding: 0.5rem 0.8rem; /* Small screen padding */
+         margin: 0.2rem; /* Small screen margin */
+         border-radius: 20px; /* Small screen radius */
+     }
+}
+
+/* --- Settings Options (e.g., Dark Mode Toggle) --- */
+.settings-option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 0;
+    border-bottom: 1px solid #eee; /* Separator */
+    margin-bottom: 1rem;
+}
+
+.toggle-label {
+    font-weight: 500;
+    color: #333;
+}
+
+/* The switch - a box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: var(--primary-color); /* Use theme primary color */
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px var(--primary-color); /* Use theme primary color */
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+/* --- Theme Selector --- */
+.settings-option.theme-selector {
+    flex-direction: column; /* Stack label and options */
+    align-items: flex-start; /* Align items left */
+    border-bottom: 1px solid var(--border-color-light); /* Use light border */
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.settings-option.theme-selector .toggle-label {
+    margin-bottom: 0.75rem; /* Space between label and options */
+}
+
+.theme-options {
+    display: flex;
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    gap: 1rem; /* Space between options */
+}
+
+.theme-option-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 0.95rem;
+    color: var(--text-color-light); /* Use light text color */
+    transition: color 0.3s ease;
+}
+
+.theme-option-label input[type="radio"] {
+    margin-right: 0.5rem;
+    /* accent-color: var(--primary-color, #9400D3); Use theme color for radio button */ /* Replaced by manual style */
+}
+
+.color-swatch {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin-right: 0.3rem;
+    border: 1px solid var(--border-color); /* Use border color */
+    vertical-align: middle;
+    transition: border-color 0.3s ease;
+}
+
+/* Custom Radio Button Styling for Theme Selector */
+.theme-options input[type="radio"] {
+    appearance: none; /* Hide default radio */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    position: relative;
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--border-color); /* Outer ring */
+    border-radius: 50%;
+    cursor: pointer;
+    margin-right: 0.5rem;
+    vertical-align: middle;
+    transition: border-color 0.3s ease;
+}
+
+.theme-options input[type="radio"]::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 10px; /* Size of the inner dot */
+    height: 10px;
+    border-radius: 50%;
+    background-color: transparent; /* Hidden by default */
+    transition: background-color 0.2s ease;
+}
+
+.theme-options input[type="radio"]:checked {
+    border-color: var(--primary-color); /* Change border to theme color when checked */
+}
+
+.theme-options input[type="radio"]:checked::before {
+    background-color: var(--primary-color); /* Inner dot matches theme color */
+}
+
+/* Ensure consistent inner dot color contrast */
+/* Light Mode: White inner dot */
+body:not(.dark-mode) .theme-options input[type="radio"]:checked::before {
+     background-color: white; /* Always white dot in light mode */
+     border: none; /* Remove the extra border */
+     width: 10px; /* Reset size */
+     height: 10px;
+}
+/* Dark Mode: Use a very dark grey for better contrast */
+body.dark-mode .theme-options input[type="radio"]:checked::before {
+     background-color: #333; /* Use a consistent very dark grey dot */
+     border: none; /* No border needed for dark dot */
+     width: 10px; /* Reset size */
+     height: 10px;
+}
+/* No special case needed for yellow anymore if #333 provides enough contrast */
+
+
+
+.color-swatch.purple { background-color: #9400D3; }
+.color-swatch.blue   { background-color: #1E90FF; }
+.color-swatch.green  { background-color: #32CD32; }
+.color-swatch.yellow { background-color: #FFD700; }
+
+/* Dark mode adjustments for theme selector */
+/* Dark mode adjustments are handled by variable overrides in base.css */
+
+/* --- Master Password Section --- */
+.master-password-section {
+    margin-top: 1.5rem; /* Add some space above */
+    padding-top: 1rem; /* Add padding inside */
+    border-top: 1px dashed var(--border-color-light); /* Separator line */
+    transition: border-color 0.3s ease;
+}
+
+#master-password-fields {
+    margin-top: 0.75rem;
+    padding: 1rem;
+    background-color: color-mix(in srgb, var(--warning-color, orange) 10%, var(--container-background)); /* Slightly tinted background */
+    border: 1px solid var(--warning-color, orange);
+    border-radius: 5px;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Dark mode adjustment for master password fields background */
+body.dark-mode #master-password-fields {
+     background-color: color-mix(in srgb, var(--warning-color-dark, darkorange) 15%, var(--container-background));
+     border-color: var(--warning-color-dark, darkorange);
+}
+
+
+#master-password-fields .form-group {
+    margin-bottom: 0.75rem; /* Slightly less margin inside */
+}
+
+.warning-message {
+    font-size: 0.9rem;
+    color: var(--warning-text-color, #856404); /* Use a warning text color */
+    background-color: var(--warning-bg-color, #fff3cd); /* Use a warning background color */
+    border: 1px solid var(--warning-border-color, #ffeeba);
+    padding: 0.75rem;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    line-height: 1.4;
+    transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.warning-message strong {
+    font-weight: 600;
+}
+
+/* Dark mode warning message */
+body.dark-mode .warning-message {
+    color: var(--warning-text-color-dark, #ffecb3);
+    background-color: var(--warning-bg-color-dark, #664d03);
+    border-color: var(--warning-border-color-dark, #ffda6a);
+}
+
+/* --- Master Password Request Overlay --- */
+.master-password-request-overlay {
+    /* Inherit base overlay styles */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Slightly darker overlay */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1020; /* Above edit overlay */
+    padding: 1rem;
+}
+
+.master-password-request-box {
+    /* Inherit base box styles */
+    background-color: var(--container-background);
+    padding: 1.5rem 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px var(--shadow-color);
+    text-align: center;
+    width: 90%;
+    max-width: 400px; /* Adjust max width as needed */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    border: 1px solid var(--border-color-light);
+}
+
+.master-password-request-box h3 {
+    color: var(--primary-color);
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+.master-password-request-box p {
+    margin-bottom: 0.5rem;
+    font-size: 0.95em;
+    color: var(--text-color-light);
+    transition: color 0.3s ease;
+}
+.master-password-request-box p strong { /* Vault title */
+    color: var(--text-color);
+    font-weight: 600;
+}
+
+.master-password-request-box .warning-message.small {
+    font-size: 0.85rem; /* Smaller warning */
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+#master-password-request-form {
+    margin-top: 1rem;
+}
+
+#master-password-request-form .form-group {
+    text-align: left; /* Align label left */
+    margin-bottom: 1rem;
+}
+
+#master-password-request-form label {
+    display: block;
+    margin-bottom: 0.3rem;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.master-password-actions {
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+/* Inherit message styling */
+.master-password-request-box .message {
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    text-align: left;
+}
+.master-password-request-box .message.success {
+    background-color: color-mix(in srgb, var(--success-color) 20%, white);
+    color: color-mix(in srgb, var(--success-color) 80%, black);
+    border: 1px solid color-mix(in srgb, var(--success-color) 40%, white);
+}
+.master-password-request-box .message.error {
+    background-color: color-mix(in srgb, var(--danger-color) 20%, white);
+    color: color-mix(in srgb, var(--danger-color) 80%, black);
+    border: 1px solid color-mix(in srgb, var(--danger-color) 40%, white);
+}
+body.dark-mode .master-password-request-box .message.success {
+    background-color: color-mix(in srgb, var(--success-color-dark) 25%, black);
+    color: color-mix(in srgb, var(--success-color-dark) 85%, white);
+    border: 1px solid color-mix(in srgb, var(--success-color-dark) 50%, black);
+}
+body.dark-mode .master-password-request-box .message.error {
+    background-color: color-mix(in srgb, var(--danger-color-dark) 25%, black);
+    color: color-mix(in srgb, var(--danger-color-dark) 85%, white);
+    border: 1px solid color-mix(in srgb, var(--danger-color-dark) 50%, black);
+}
+
+/* --- Email Verification Message Styling --- */
+.verification-message-container {
+    margin-top: 20px;
+    margin-bottom: 15px;
+    padding: 15px;
+    border: 1px solid var(--warning-border-color, #ffeeba); /* Use warning color variables */
+    background-color: var(--warning-bg-color, #fff3cd); /* Use warning color variables */
+    color: var(--warning-text-color, #856404); /* Use warning color variables */
+    border-radius: var(--border-radius); /* Use global border radius */
+    text-align: center;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.verification-message-container b {
+    font-weight: 600; /* Make email bold */
+}
+
+/* Style the resend button like other auth buttons, but maybe slightly less prominent or with a specific color */
+.verification-resend-button {
+    /* Inherits .auth-button styles for basic structure */
+    margin-top: 10px; /* Space above the button */
+    padding: 8px 15px; /* Adjust padding if needed */
+    font-size: 0.9rem; /* Slightly smaller font if desired */
+    width: auto; /* Allow button to size to content */
+    display: inline-block; /* Allow centering via text-align on parent */
+    /* Optionally, use a secondary color or a less prominent version of primary */
+    background-color: var(--secondary-color, #6c757d); /* Example: Use secondary color */
+    color: var(--notification-text, #fff);
+}
+
+.verification-resend-button:hover {
+    background-color: var(--secondary-color-hover, #5a6268); /* Example: Hover for secondary */
+}
+
+/* Dark mode adjustments for verification message */
+body.dark-mode .verification-message-container {
+    border-color: var(--warning-border-color-dark, #ffda6a);
+    background-color: var(--warning-bg-color-dark, #664d03);
+    color: var(--warning-text-color-dark, #ffecb3);
+}
+
+body.dark-mode .verification-resend-button {
+    background-color: var(--secondary-color-dark, #545b62);
+    color: var(--notification-text-dark, #f8f9fa);
+}
+
+body.dark-mode .verification-resend-button:hover {
+    background-color: var(--secondary-color-hover-dark, #494f54);
+}
+
+/* --- Auto Logout Warning Styling --- */
+.auto-logout-warning {
+    position: fixed;
+    bottom: 20px; /* Position near bottom */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--danger-color); /* Use danger color for urgency */
+    color: var(--notification-text); /* Use notification text color */
+    padding: 12px 25px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+    z-index: 1200; /* Above notifications */
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-align: center;
+    opacity: 1;
+    transition: opacity 0.3s ease; /* Fade in/out */
+}
+
+.auto-logout-warning.hidden {
+    opacity: 0;
+    pointer-events: none; /* Prevent interaction when hidden */
+}
+
+/* Dark mode adjustments */
+body.dark-mode .auto-logout-warning {
+    background-color: var(--danger-color-dark);
+    color: var(--notification-text-dark);
+}
+
+/* --- Profile Picture Feature --- */
+.profile-feature {
+    position: relative; /* For dropdown positioning */
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.profile-image {
+    width: 70px;  /* Increased size further */
+    height: 70px; /* Increased size further */
+    border-radius: 50%; /* Round image */
+    border: 3px solid var(--primary-color); /* Slightly thicker border */
+    object-fit: cover; /* Ensure image covers the area */
+    transition: border-color 0.3s ease;
+    box-shadow: 0 2px 5px var(--shadow-color-light); /* Add subtle shadow */
+}
+
+.profile-dropdown {
+    position: absolute;
+    top: calc(100% + 10px); /* Position below the image with more spacing */
+    right: 0;
+    background-color: var(--container-background);
+    border: 1px solid var(--border-color-light);
+    border-radius: 8px; /* Consistent radius */
+    box-shadow: 0 5px 15px var(--shadow-color); /* Slightly stronger shadow */
+    padding: 1.2rem; /* Increased padding */
+    z-index: 950; /* Above main content, below overlays */
+    min-width: 240px; /* Slightly wider */
+    display: flex;
+    flex-direction: column;
+    gap: 1rem; /* Increased gap */
+    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.profile-dropdown.hidden {
+    display: none;
+}
+
+#dropdown-user-info {
+    border-bottom: 1px solid var(--border-color-light); /* Add separator */
+    padding-bottom: 1rem; /* Space below user info */
+    margin-bottom: 0.5rem; /* Space above first button */
+}
+
+#dropdown-user-info p {
+    margin: 0.3rem 0; /* Adjust vertical margin */
+    font-size: 0.95rem; /* Slightly larger font */
+    color: var(--text-color-light);
+    line-height: 1.4;
+    word-break: break-all; /* Break long emails/usernames */
+}
+
+#dropdown-user-info p strong {
+    color: var(--text-color);
+    margin-right: 5px;
+}
+
+.profile-dropdown .action-button {
+    /* Inherit base action-button styles, override width/alignment */
+    width: 100%;
+    text-align: center; /* Center text like other action buttons */
+    padding: 0.625rem 1.125rem; /* Match base action button padding */
+    font-size: 0.95rem; /* Match base action button font size */
+    margin: 0; /* Remove default margin from base action button */
+}
+
+/* Dark mode adjustments for profile dropdown */
+body.dark-mode .profile-image {
+    border-color: var(--primary-color-dark);
+}
+
+body.dark-mode .profile-dropdown {
+    background-color: var(--container-background-dark);
+    border-color: var(--border-color-dark);
+    box-shadow: 0 4px 12px var(--shadow-color-dark);
+}
+
+body.dark-mode #dropdown-user-info p {
+    color: var(--text-color-lighter-dark);
+}
+
+body.dark-mode #dropdown-user-info p strong {
+    color: var(--text-color-dark);
+}

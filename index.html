@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--
+        Metadata:
+        Configures basic document settings like character set, viewport, description, and title.
+     -->
+    <meta charset="UTF-8"> <!-- Specifies character encoding for the document (UTF-8 is recommended). -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Configures the viewport for responsive design across different devices. -->
+    <meta name="description" content="Password Vault Manager - Securely store, manage, and protect your passwords and sensitive information."> <!-- Provides a brief description of the page for search engines. -->
+    <title>Password Vault Manager</title> <!-- Sets the title that appears in the browser tab or window title bar. -->
+
+    <!--
+        CSS Stylesheets:
+        Links to external CSS files that define the visual presentation of the application.
+        The order of these links is *critical* due to the cascading nature of CSS.
+        Styles defined in later files can override styles defined in earlier files.
+     -->
+    <link rel="stylesheet" href="css/base.css">       <!-- 1. Base styles: Resets default browser styles and defines global styles for basic HTML elements (body, typography, etc.). -->
+    <link rel="stylesheet" href="css/layout.css">     <!-- 2. Layout styles: Defines the overall page layout and responsive adjustments using media queries. -->
+    <link rel="stylesheet" href="css/components.css"> <!-- 3. Component styles: Styles for reusable UI components (buttons, forms, navigation bars, overlays, etc.). -->
+    <link rel="stylesheet" href="css/sections.css">   <!-- 4. Section styles: Styles specific to the main content sections (login, vault, accounts, settings, about). -->
+    <link rel="stylesheet" href="css/utilities.css">  <!-- 5. Utility classes: Small, single-purpose CSS classes that can be used to quickly apply styles (e.g., .hidden { display: none; }). -->
+    <link rel="stylesheet" href="css/loading.css">    <!-- 6. Styles for the loading screen. -->
+    <link rel="stylesheet" href="spider-cursor/spider-cursor.css"> <!-- 7. Styles for the cosmetic spider cursor effect. -->
+</head>
+<body>
+
+    <!-- Loading Screen Overlay -->
+    <div id="loading-overlay" class="loading-overlay hidden">
+        <div class="loading-spinner"></div>
+        <p class="loading-text">Loading, please wait...</p>
+    </div>
+
+    <!-- Main Application Navigation (Visible when logged in) -->
+    <nav id="main-nav" class="main-navigation hidden" data-page="main">
+        <div class="nav-wrapper">
+            <ul class="nav-list">
+                <li class="nav-item active" data-section="vault">Vault</li> <!-- Link to Vault section -->
+                <li class="nav-item hidden" data-section="accounts">Accounts</li> <!-- Link to Accounts section (currently hidden) -->
+                <li class="nav-item" data-section="history">History</li> <!-- Link to History section -->
+                <li class="nav-item hidden" data-section="settings">Settings</li> <!-- Link to Settings section (currently hidden) -->
+                <li class="nav-item" data-section="logout">Log Out</li> <!-- Logout button -->
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Authentication Navigation (Visible when logged out) -->
+    <nav id="auth-nav" class="auth-navigation" data-page="welcome">
+        <div class="nav-wrapper">
+            <ul class="nav-list">
+                <li class="nav-item active" data-section="signup">Sign Up</li> <!-- Link to Sign Up section -->
+                <li class="nav-item" data-section="login">Log In</li> <!-- Link to Log In section -->
+                <li class="nav-item" data-section="about">About Us</li> <!-- Link to About Us section -->
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Profile Picture Feature -->
+    <div id="profile-feature-container" class="profile-feature hidden" data-page="main">
+        <input type="file" id="profile-picture-input" accept="image/*" style="display: none;"> <!-- Hidden file input -->
+        <img id="profile-picture" src="images/default-profile.png" alt="Profile Picture" class="profile-image">
+        <div id="profile-dropdown" class="profile-dropdown hidden">
+            <div id="dropdown-user-info">
+                <p><strong>Username:</strong> <span id="dropdown-username-value"></span></p>
+                <p><strong>Email:</strong> <span id="dropdown-email-value"></span></p>
+            </div>
+            <button id="dropdown-change-picture-button" class="action-button">Change Picture</button>
+            <button id="dropdown-logout-button" class="action-button">Log Out</button>
+        </div>
+    </div>
+
+    <!-- Main Content Area: Sections are toggled visible/hidden by script.js -->
+    <main class="container">
+
+        <!-- Sign Up Section -->
+        <section id="signup-section" class="auth-section signup-section" data-page="welcome">
+            <h2>Sign Up</h2>
+            <form id="signup-form" class="auth-form">
+                <!-- Username Input -->
+                <div class="form-group">
+                    <label for="signup-username">Username</label>
+                    <input type="text" id="signup-username" name="signup-username" required>
+                </div>
+                <!-- Email Input -->
+                <div class="form-group">
+                    <label for="signup-email">Email</label>
+                    <input type="email" id="signup-email" name="signup-email" required>
+                </div>
+                <!-- Password Input with Toggle and Strength Indicator -->
+                <div class="form-group">
+                    <label for="signup-password">Password</label>
+                    <div class="password-container">
+                        <input type="password" id="signup-password" name="signup-password" required>
+                        <span class="password-toggle" aria-label="Toggle password visibility">👁️</span>
+                    </div>
+                    <div id="password-strength-indicator" class="hidden">
+                        <div id="strength-bar"></div>
+                        <p id="strength-text">Strength: </p>
+                    </div>
+                </div>
+                <!-- Confirm Password Input with Toggle -->
+                <div class="form-group">
+                    <label for="signup-confirm-password">Confirm Password</label>
+                    <div class="password-container">
+                        <input type="password" id="signup-confirm-password" name="signup-confirm-password" required>
+                        <span class="password-toggle" aria-label="Toggle password visibility">👁️</span>
+                    </div>
+                </div>
+                <!-- Optional Birthday Input -->
+                <div class="form-group">
+                    <label for="signup-birthday">Birthday</label>
+                    <input type="date" id="signup-birthday" name="signup-birthday">
+                </div>
+                <!-- Optional Gender Selection -->
+                <div class="form-group">
+                    <label for="signup-gender">Gender</label>
+                    <select id="signup-gender" name="signup-gender">
+                        <option value="">Select Gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <!-- Sign Up Button -->
+                <button type="submit" class="auth-button">Sign Up</button>
+            </form>
+            <!-- Link to switch to Login form -->
+            <div class="auth-toggle-link">
+                <a href="#" id="login-link">Already have an account? Log in</a>
+            </div>
+        </section>
+
+        <!-- Log In Section -->
+        <section id="login-section" class="auth-section login-section hidden" data-page="welcome">
+            <h2>Log In</h2>
+            <form id="login-form" class="auth-form">
+                <!-- Username/Email Input -->
+                <div class="form-group">
+                    <label for="login-identifier">Username or Email</label>
+                    <input type="text" id="login-identifier" name="login-identifier" required>
+                </div>
+                <!-- Password Input with Toggle -->
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <div class="password-container">
+                        <input type="password" id="login-password" name="login-password" required>
+                        <span class="password-toggle" aria-label="Toggle password visibility">👁️</span>
+                    </div>
+                </div>
+                <!-- Remember Me Checkbox and Forgot Password Link -->
+                <div class="form-group form-options">
+                    <label class="remember-me">
+                        <input type="checkbox" id="remember-me" name="remember-me"> Remember Me
+                    </label>
+                    <a href="#" id="forgot-password-link" class="forgot-password-link">Forgot Password?</a>
+                </div>
+                <!-- Log In Button -->
+                <button type="submit" class="auth-button">Log In</button>
+            </form>
+            <!-- Link to switch to Sign Up form -->
+            <div class="auth-toggle-link">
+                <a href="#" id="signup-link">Need an account? Sign up</a>
+            </div>
+        </section>
+
+        <!-- Vault Section (Main view when logged in) -->
+        <section id="vault-section" class="password-manager-section vault-section hidden" data-page="main">
+            <h2>Vault</h2>
+            <!-- Form for Adding New Vault Items -->
+            <div class="vault-form">
+                <h3>Add New Vault</h3>
+                <form id="add-vault-form">
+                    <!-- Title Input (Required) -->
+                    <div class="form-group">
+                        <label for="vault-title">Title</label>
+                        <input type="text" id="vault-title" name="vault-title" required>
+                    </div>
+                    <!-- Optional Username Input -->
+                    <div class="form-group optional-checkbox">
+                        <input type="checkbox" id="use-username" name="use-username">
+                        <label for="use-username" class="checkbox-label">Username (Optional)</label>
+                        <div class="optional-field" id="username-field">
+                            <input type="text" id="vault-username" name="vault-username">
+                        </div>
+                    </div>
+                    <!-- Optional Email Input -->
+                    <div class="form-group optional-checkbox">
+                        <input type="checkbox" id="use-email" name="use-email">
+                        <label for="use-email" class="checkbox-label">Email (Optional)</label>
+                        <div class="optional-field" id="email-field">
+                            <input type="email" id="vault-email" name="vault-email">
+                        </div>
+                    </div>
+                    <!-- Password Input with Toggle and Generate Button -->
+                    <div class="form-group">
+                        <label for="vault-password">Password</label>
+                        <div class="input-with-button">
+                            <div class="password-container">
+                                <input type="password" id="vault-password" name="vault-password" required>
+                                <span class="password-toggle" aria-label="Toggle password visibility">👁️</span>
+                            </div>
+                            <button type="button" id="generate-password-button" class="action-button generate-password-button">Generate Password</button>
+                        </div>
+                    </div>
+                    <!-- Optional Image Upload -->
+                    <div class="form-group">
+                        <label for="vault-image">Vault Image (Optional)</label>
+                        <input type="file" id="vault-image" name="vault-image" accept="image/*">
+                        <button type="button" id="remove-vault-image" class="action-button">Remove Image</button>
+                    </div>
+                    <!-- Optional PIN Input -->
+                    <div class="form-group optional-checkbox">
+                        <input type="checkbox" id="use-pin" name="use-pin">
+                        <label for="use-pin" class="checkbox-label">Use PIN (4-16 digits)</label>
+                        <div class="optional-field hidden" id="pin-field">
+                            <input type="text" id="vault-pin" name="vault-pin" placeholder="Enter PIN (4-16 digits)" inputmode="numeric" pattern="\d{4,16}">
+                        </div>
+                    </div>
+                    <!-- Optional Master Password Protection -->
+                    <div class="form-group optional-checkbox master-password-section">
+                        <input type="checkbox" id="use-master-password" name="use-master-password">
+                        <label for="use-master-password" class="checkbox-label">Enable Master Password Protection (Optional, High Security)</label>
+                        <div class="optional-field hidden" id="master-password-fields">
+                            <p class="warning-message">
+                                <strong>Warning:</strong> If you forget this Master Password, the data in this vault item will be <strong>permanently lost</strong>. There is no recovery option.
+                            </p>
+                            <div class="form-group">
+                                <label for="vault-master-password">Item Master Password</label>
+                                <div class="password-container">
+                                    <input type="password" id="vault-master-password" name="vault-master-password" placeholder="Enter a strong, unique password for this item">
+                                    <span class="password-toggle" aria-label="Toggle password visibility">👁️</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="vault-confirm-master-password">Confirm Master Password</label>
+                                <div class="password-container">
+                                    <input type="password" id="vault-confirm-master-password" name="vault-confirm-master-password" placeholder="Confirm the Master Password">
+                                    <span class="password-toggle" aria-label="Toggle password visibility">👁️</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Add Vault Button -->
+                    <button type="submit" class="action-button">Add Vault</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Accounts Section (Displays saved vault items) -->
+        <section id="accounts-section" class="password-manager-section accounts-section hidden" data-page="main">
+            <h2>Accounts</h2>
+            <div class="vault-list">
+                <!-- Container where vault items are dynamically rendered by vault-ui.js -->
+                <div id="vaults-container">
+                    <p>No vaults added yet.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- History Section (Displays vault activity log) -->
+        <section id="history-section" class="password-manager-section history-section hidden" data-page="main">
+            <h2>History</h2>
+            <!-- Container where history table is dynamically rendered by history-ui.js -->
+            <div id="history-container"></div>
+        </section>
+
+        <!-- Settings Section -->
+        <section id="settings-section" class="password-manager-section settings-section hidden" data-page="main">
+            <h2>Settings</h2>
+            <!-- Display User Profile Information -->
+            <div id="user-settings">
+                <p><strong>Username:</strong> <span id="settings-username"></span></p>
+                <p><strong>Email:</strong> <span id="settings-email"></span></p>
+                <p><strong>Password:</strong> <span id="settings-password">********</span></p> <!-- Placeholder only -->
+                <p><strong>Birthday:</strong> <span id="settings-birthday"></span></p>
+                <p><strong>Gender:</strong> <span id="settings-gender"></span></p>
+            </div>
+            <!-- Dark Mode Toggle -->
+            <div class="settings-option">
+                <label for="dark-mode-toggle" class="toggle-label">Dark Mode</label>
+                <label class="switch">
+                    <input type="checkbox" id="dark-mode-toggle">
+                    <span class="slider round"></span>
+                </label>
+            </div>
+            <!-- Theme Color Selection -->
+            <div class="settings-option theme-selector">
+                <span class="toggle-label">Theme Color</span>
+                <div class="theme-options color-options">
+                    <label class="theme-option-label">
+                        <input type="radio" name="theme-color" value="purple" data-color="#9400D3">
+                        <span class="color-swatch purple"></span> Purple
+                    </label>
+                    <label class="theme-option-label">
+                        <input type="radio" name="theme-color" value="blue" data-color="#1E90FF">
+                        <span class="color-swatch blue"></span> Blue
+                    </label>
+                    <label class="theme-option-label">
+                        <input type="radio" name="theme-color" value="green" data-color="#32CD32">
+                        <span class="color-swatch green"></span> Green
+                    </label>
+                    <label class="theme-option-label">
+                        <input type="radio" name="theme-color" value="yellow" data-color="#FFD700">
+                        <span class="color-swatch yellow"></span> Yellow
+                    </label>
+                </div>
+            </div>
+            <!-- Theme Style Selection -->
+            <div class="settings-option theme-selector">
+                <span class="toggle-label">Theme Style</span>
+                <div class="theme-options style-options">
+                    <label class="theme-option-label">
+                        <input type="radio" name="theme-style" value="gradient"> Gradient
+                    </label>
+                    <label class="theme-option-label">
+                        <input type="radio" name="theme-style" value="solid"> Solid
+                    </label>
+                </div>
+            </div>
+            <!-- Delete Account Button -->
+            <div class="settings-actions">
+                <button id="delete-account-button" class="action-button danger-button">Delete Account</button>
+            </div>
+        </section>
+
+        <!-- About Us Section -->
+        <section id="about-section" class="auth-section hidden" data-page="welcome">
+            <h2>About Us</h2>
+            <p>Welcome to <strong>Password Vault Manager</strong> — your secure, user-friendly solution for managing all your passwords and sensitive information.</p>
+            <p>Our mission is to help you store, organize, and protect your credentials with ease. Whether you're managing personal accounts or work logins, our app ensures your data is encrypted and accessible only to you.</p>
+            <p>Features include:</p>
+            <ul>
+                <li>Secure password storage with encryption</li>
+                <li>PIN protection for sensitive vaults</li>
+                <li>Easy password generation</li>
+                <li>Organized account management</li>
+                <li>Simple, intuitive interface</li>
+            </ul>
+            <p>Developed with care to keep your digital life safe and simple.</p>
+            <p><em>Thank you for trusting us with your security!</em></p>
+        </section>
+
+    </main>
+
+    <!-- Developer Info Toggle (Visible on welcome page) -->
+    <div class="dev-toggle-container" data-page="welcome">
+      <div class="dev-toggle-button">
+        <span class="arrow-icon">&#9650;</span> <!-- Up arrow initially -->
+      </div>
+      <div class="dev-content hidden"> <!-- Content initially hidden -->
+        <p><strong>Developers:</strong></p>
+        <ul>
+          <li>Save Von Villanueva</li>
+          <li>Rogee Hans Nierves</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- PIN Request Overlay (Modal) -->
+    <div id="pin-request-overlay" class="pin-request-overlay hidden" role="dialog" aria-modal="true">
+        <div class="pin-request-box">
+            <h3>Enter PIN</h3>
+            <input type="password" id="pin-input" placeholder="Enter PIN" inputmode="numeric" pattern="\d{4,16}" autocomplete="off">
+            <a href="#" id="forgot-vault-pin-link" class="forgot-pin-link" style="display: block; text-align: center; margin-top: 10px;">Forgot PIN/Password?</a>
+            <div class="pin-actions">
+                <button id="submit-pin-button" class="action-button">Submit</button>
+                <button id="cancel-pin-button" class="action-button">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Vault Overlay (Modal) -->
+    <div id="edit-vault-overlay" class="edit-vault-overlay hidden" role="dialog" aria-modal="true">
+        <div class="edit-vault-box">
+            <h3>Edit Vault</h3>
+            <form id="edit-vault-form">
+                <!-- Fields similar to Add Vault form, pre-populated with existing data -->
+                <div class="form-group">
+                    <label for="edit-vault-title">Title</label>
+                    <input type="text" id="edit-vault-title" name="edit-vault-title" > </div>
+                <div class="form-group">
+                    <label for="edit-vault-username">Username</label>
+                    <input type="text" id="edit-vault-username" name="edit-vault-username">
+                </div>
+                <div class="form-group">
+                    <label for="edit-vault-email">Email</label>
+                    <input type="email" id="edit-vault-email" name="edit-vault-email">
+                </div>
+                <div class="form-group">
+                    <label for="edit-vault-password">New Password</label>
+                     <div class="input-with-button">
+                        <div class="password-container">
+                            <input type="password" id="edit-vault-password" name="edit-vault-password">
+                            <span class="password-toggle" aria-label="Toggle password visibility">👁️</span>
+                        </div>
+                        <button type="button" id="edit-generate-password-button" class="action-button generate-password-button">Generate Password</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="edit-vault-image">Vault Image (Optional, under 20MB, png, jpg, jpeg, gif):</label>
+                    <input type="file" id="edit-vault-image" name="edit-vault-image" accept="image/png, image/jpeg, image/jpg, image/gif">
+                    <button type="button" id="remove-edit-vault-image" class="action-button">Remove Image</button>
+                </div>
+                <div class="form-group optional-checkbox">
+                    <input type="checkbox" id="edit-use-pin" name="edit-use-pin">
+                    <label for="edit-use-pin" class="checkbox-label">Use/Change PIN (4-16 digits)</label>
+                    <div class="optional-field hidden" id="edit-pin-field">
+                        <input type="text" id="edit-vault-pin" name="edit-vault-pin" placeholder="Enter PIN (4-16 digits)" inputmode="numeric" pattern="\d{4,16}">
+                    </div>
+                </div>
+                <!-- Section to verify current PIN if changing PIN -->
+                <div id="edit-pin-verify-section" class="hidden">
+                    <div class="form-group">
+                        <label for="edit-verify-pin">Verify Current PIN</label>
+                        <input type="password" id="edit-verify-pin" name="edit-verify-pin" placeholder="Enter current PIN to change PIN" inputmode="numeric" pattern="\d{4,16}">
+                    </div>
+                </div>
+                <!-- Save/Cancel Buttons -->
+                <button type="submit" class="action-button">Save Changes</button>
+                <button type="button" id="cancel-edit-button" class="action-button">Cancel</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Delete Account Confirmation Overlay (Modal) -->
+    <div id="delete-account-confirm-overlay" class="delete-account-confirm-overlay hidden" role="dialog" aria-modal="true">
+        <div class="delete-account-confirm-box">
+            <h3>Confirm Account Deletion</h3>
+            <p><strong>Warning:</strong> This action is irreversible. All your vaults and account data will be permanently deleted.</p>
+            <p>Please enter your password to confirm:</p>
+            <form id="delete-account-confirm-form">
+                 <div class="form-group">
+                    <label for="delete-confirm-password">Password</label>
+                    <div class="password-container">
+                         <input type="password" id="delete-confirm-password" name="delete-confirm-password" required>
+                         <span class="password-toggle" aria-label="Toggle password visibility">👁️</span>
+                    </div>
+                </div>
+                <div class="delete-account-actions">
+                    <button type="submit" id="confirm-delete-button" class="action-button danger-button">Delete My Account</button>
+                    <button type="button" id="cancel-delete-button" class="action-button">Cancel</button>
+                </div>
+            </form>
+             <p id="delete-account-message" class="message hidden"></p> <!-- For success/error messages -->
+        </div>
+    </div>
+
+    <!-- Forgot Password Overlay (Modal) -->
+    <div id="forgot-password-overlay" class="forgot-password-overlay hidden" role="dialog" aria-modal="true">
+        <div class="forgot-password-box">
+            <h3>Reset Password</h3>
+            <p>Enter your registered email address below. We'll send you a link to reset your password.</p>
+            <form id="forgot-password-form">
+                <div class="form-group">
+                    <label for="forgot-email">Email Address</label>
+                    <input type="email" id="forgot-email" name="forgot-email" required>
+                </div>
+                <div class="forgot-password-actions">
+                    <button type="submit" id="send-reset-link-button" class="action-button">Send Reset Link</button>
+                    <button type="button" id="cancel-forgot-password-button" class="action-button">Cancel</button>
+                </div>
+            </form>
+            <p id="forgot-password-message" class="message hidden"></p> <!-- For success/error messages -->
+        </div>
+    </div>
+
+    <!-- JavaScript Loading -->
+    <!-- Load utility and module scripts first -->
+    <script type="module" src="js/utils.js" defer></script> <!-- General utility functions (notifications, password generation) -->
+    <!-- Removed storage.js script tag -->
+    <!-- Removed vault.js script tag -->
+    <script type="module" src="js/auth.js" defer></script> <!-- Firebase Authentication logic -->
+    <script type="module" src="js/encryption.js" defer></script> <!-- Web Crypto API encryption/decryption logic -->
+    <script type="module" src="js/database.js" defer></script> <!-- Firebase Firestore database interaction logic -->
+    <script type="module" src="js/vault-logic.js" defer></script> <!-- Core logic for managing vault data (state, encryption, PINs) -->
+    <script type="module" src="js/vault-ui.js" defer></script> <!-- UI handling for vault display, forms, and overlays -->
+    <script type="module" src="js/history-ui.js" defer></script> <!-- UI handling for history display and actions -->
+    <!-- Load main application script last -->
+    <script type="module" src="script.js" defer></script> <!-- Main script coordinating UI, auth, and modules -->
+    <script src="spider-cursor/spider-cursor.js" defer></script> <!-- Cosmetic spider cursor effect script -->
+
+    <!-- Master Password Prompt Overlay (Modal) -->
+    <div id="master-password-request-overlay" class="master-password-request-overlay hidden" role="dialog" aria-modal="true">
+        <div class="master-password-request-box">
+            <h3>Master Password Required</h3>
+            <p>Enter the Master Password for vault item: <strong id="master-prompt-vault-title"></strong></p>
+            <p class="warning-message small">Remember: This password is unique to this item and cannot be recovered if forgotten.</p>
+            <form id="master-password-request-form">
+                 <div class="form-group">
+                    <label for="master-password-input">Master Password</label>
+                    <div class="password-container">
+                         <input type="password" id="master-password-input" name="master-password-input" required autocomplete="off">
+                         <span class="password-toggle" aria-label="Toggle password visibility">👁️</span>
+                    </div>
+                </div>
+                <div class="master-password-actions">
+                    <button type="submit" id="submit-master-password-button" class="action-button">Unlock</button>
+                    <button type="button" id="cancel-master-password-button" class="action-button">Cancel</button>
+                </div>
+            </form>
+             <p id="master-password-message" class="message hidden"></p> <!-- For success/error messages -->
+        </div>
+    </div>
+    <!-- END: Master Password Prompt Overlay -->
+
+    <!-- Auto Logout Warning Message -->
+    <div id="auto-logout-warning" class="auto-logout-warning hidden"></div>
+
+    <!-- Re-authenticate for PIN Reset Overlay (Modal) -->
+    <div id="reauth-for-pin-reset-overlay" class="pin-request-overlay hidden" role="dialog" aria-modal="true">
+        <div class="pin-request-box">
+            <h3>Confirm Your Identity</h3>
+            <p>To reset the PIN for this vault item, please enter your main account password.</p>
+            <form id="reauth-for-pin-reset-form">
+                <div class="form-group">
+                    <label for="reauth-main-password">Main Account Password</label>
+                    <div class="password-container">
+                        <input type="password" id="reauth-main-password" name="reauth-main-password" required autocomplete="current-password">
+                        <span class="password-toggle" aria-label="Toggle password visibility">👁️</span>
+                    </div>
+                </div>
+                <div class="pin-actions">
+                    <button type="submit" class="action-button">Confirm Password</button>
+                    <button type="button" id="cancel-reauth-pin-reset-button" class="action-button">Cancel</button>
+                </div>
+            </form>
+            <p id="reauth-pin-reset-message" class="message hidden"></p>
+        </div>
+    </div>
+
+    <!-- PIN Reset Action Overlay (Modal) -->
+    <div id="pin-reset-action-overlay" class="pin-request-overlay hidden" role="dialog" aria-modal="true">
+        <div class="pin-request-box">
+            <h3 id="pin-reset-action-title">Reset PIN for Vault: <span></span></h3>
+            <p>What would you like to do?</p>
+            <div class="form-group">
+                <button id="remove-vault-pin-button" class="action-button danger-button">Remove PIN Entirely</button>
+            </div>
+            <div class="form-group">
+                <button id="set-new-vault-pin-button" class="action-button">Set a New PIN</button>
+            </div>
+            <form id="set-new-pin-form" class="hidden" style="margin-top: 15px;">
+                <div class="form-group">
+                    <label for="new-vault-pin">New PIN (4-16 digits)</label>
+                    <input type="password" id="new-vault-pin" name="new-vault-pin" placeholder="Enter new PIN" inputmode="numeric" pattern="\d{4,16}" autocomplete="new-password">
+                </div>
+                <div class="form-group">
+                    <label for="confirm-new-vault-pin">Confirm New PIN</label>
+                    <input type="password" id="confirm-new-vault-pin" name="confirm-new-vault-pin" placeholder="Confirm new PIN" inputmode="numeric" pattern="\d{4,16}" autocomplete="new-password">
+                </div>
+                <button type="submit" class="action-button">Save New PIN</button>
+            </form>
+            <div class="pin-actions" style="margin-top: 20px;">
+                <button type="button" id="cancel-pin-reset-action-button" class="action-button">Cancel</button>
+            </div>
+            <p id="pin-reset-action-message" class="message hidden"></p>
+        </div>
+    </div>
+
+</body>
+</html>

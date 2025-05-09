@@ -1,0 +1,44 @@
+/* Loading Overlay Styles */
+.loading-overlay {
+    position: fixed; /* Cover the entire viewport */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.75); /* Semi-transparent black background */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* Ensure it's on top of all other content */
+    color: #fff; /* White text color */
+    text-align: center;
+}
+
+/* Loading Spinner Animation */
+.loading-spinner {
+    border: 8px solid rgba(255, 255, 255, 0.3); /* Light grey border */
+    border-top: 8px solid #fff; /* White border for the spinning part */
+    border-radius: 50%; /* Make it a circle */
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite; /* Spin animation */
+    margin-bottom: 20px; /* Space between spinner and text */
+}
+
+/* Loading Text */
+.loading-text {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+/* Keyframes for the spinning animation */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Utility class to hide the overlay (already defined in utilities.css but good for clarity) */
+.loading-overlay.hidden {
+    display: none;
+}
